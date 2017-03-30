@@ -1464,7 +1464,7 @@ def getTappedKeys():
 def loadHiscore():
     '''loads the highscore from the score file into the global hi variable'''
     global hi
-    file = open(os.path.join(fpath, 'scores'), 'r')
+    file = open(os.path.join(fpath, 'Scores/scores'), 'r')
     scs = file.read()
     hi = int(scs.split('\n')[0].split(':')[1])
 
@@ -1670,7 +1670,7 @@ def saveScore(name, points):
         except:
             break
 
-    sbfile = open(os.path.join(fpath, 'scores'), 'w')
+    sbfile = open(os.path.join(fpath, 'Scores/scores'), 'w')
     for scor in newscores:
         sbfile.write(scor[0] + ':' + str(scor[1]) + '\n')
 
@@ -2014,7 +2014,7 @@ def loadScoreboard():
     '''loads the scores from the score file'''
     loadHiscore()
     r = list()
-    file = open(os.path.join(fpath, 'scores'), 'r')
+    file = open(os.path.join(fpath, 'Scores/scores'), 'r')
     dat = file.read()
     spldat = dat.split('\n')
     for scor in spldat:
