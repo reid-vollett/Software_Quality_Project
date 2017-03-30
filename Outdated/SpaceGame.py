@@ -1,10 +1,7 @@
+#Isaiah smith
+#cs140a
+#6/6/2016
 #SpaceGame.py
-
-#Software Quality Project - Refactoring / Unit Tests
-
-#Game Author:
-# Name: Isaiah Smith
-# Github: https://github.com/Technostalgic/Asteroids-Too
 
 import os;
 import sys;
@@ -96,7 +93,7 @@ class particle:
     if(this.life <= 0 or distance(p1.pos, this.pos) > 500):
       particles.remove(this);
       return;
-
+      
     this.vel = multPoint(this.vel, this.damping);
     this.pos = addPoints(this.pos, this.vel);
     this.life -= 1;
@@ -128,13 +125,13 @@ class motherCowDeath(particle):
     if(this.life % 3 == 0):
       this.burst();
     this.life -= 1;
-
+      
   def burst(this):
     blast = circ(random.randrange(20, 35));
     if(randChance(50)):
       blast.color = (255, 150, 0);
     else:
-      blast.color = (255, 255, 0);
+      blast.color = (255, 255, 0);      
     tpos = addPoints(this.pos, randPoint(20));
     blast.pos = tpos;
     maincam.toDraw(blast);
@@ -142,7 +139,7 @@ class motherCowDeath(particle):
       part = particle(addPoints(tpos, randCirc(blast.scale / 2)), randCirc(5), blast.color, 3);
       part.life = randRange(30, 10);
       particles.append(part);
-
+    
   def draw(this):
     0;
 class shape:
@@ -168,7 +165,7 @@ class poly(shape):
     this.verts = list();
     for v in verts:
       this.verts.append(v);
-
+    
   def getAbsVerts(this):
     '''gets the world position of the poly's vertices'''
     result = list();
@@ -176,7 +173,7 @@ class poly(shape):
       av = multPoint(vert, this.scale);
       result.append(transform(av, this.pos, this.angle));
     return result;
-
+      
   def draw(this, cam):
     '''adds the poly to the camera's draw query'''
     cam.toDraw(this);
@@ -187,13 +184,13 @@ class poly(shape):
     for i in range(points):
       form.verts.append(xyComponent((math.pi * 2) * (i / points)));
     return form;
-
+  
 class circ(shape):
   def __init__(this, size = 10):
     '''initializes a circ object, not used very often because pygame handles rendering circle outlines very poorly'''
     shape.__init__(this);
     this.scale = size;
-
+    
   def draw(this, cam):
     '''adds the circ object to the camera's draw query'''
     maincam.toDraw(this);
@@ -205,7 +202,7 @@ class camera:
     this.drawQuery = list();
     this.pos = (0,0);
     this.angle = 0;
-
+  
   def orient(this, pos, angle):
     '''orients the camera to the specified settings'''
     this.pos = addPoints(pos, (size[0] / -2, size[1] / -2));
@@ -223,7 +220,7 @@ class camera:
     av = transform(av, (0,0), -this.angle);
     av = addPoints(av, multPoint(size, .5));
     return av;
-
+    
   def render(this, screen):
     '''transforms the shapes in it's drawQuery to it's orientation and then renders them to the screen'''
     for dshape in this.drawQuery:
@@ -241,7 +238,7 @@ class camera:
     rect = dimg.surface.get_rect();
     rect.center = this.getViewPoint(dimg.pos);
     screen.blit(dimg.surface, rect);
-
+  
   def renderPoly(this, dpoly):
     '''renders a poly object'''
     absverts = list();
@@ -261,7 +258,7 @@ class camera:
   def renderCirc(this, dcirc):
     '''renders a circ object'''
     pygame.draw.circle(screen, dcirc.color, roundPoint(this.getViewPoint(dcirc.pos)), round(dcirc.scale), dcirc.thickness);
-
+    
   def toDraw(this, dshape):
     '''adds a shape to the draw query if it is a shape object'''
     if(not baseIs(dshape, shape)):
@@ -292,7 +289,7 @@ class weapon:
       this.firewait = this.fireDelay;
       return True;
     return False;
-
+  
   def fire(this, pos, aim, vel):
     proj = projectile(True, pos, aim);
     proj.vel = addPoints(proj.vel, vel);
@@ -329,7 +326,7 @@ class missileLauncher(weapon):
     ret2.color = col;
     maincam.toDraw(ret2);
     maincam.toDraw(ret1);
-
+  
   def fire(this, pos, aim, vel):
     '''releases a missile projectile'''
     this.ammo -= 1;
@@ -353,7 +350,7 @@ class rapidGun(weapon):
     weapon.__init__(this);
     this.fireDelay = 3;
     this.ammo = 140;
-
+    
   def draw(this):
     '''draws the reticle for the rapid gun'''
     thick = 2;
@@ -406,7 +403,7 @@ class spreadGun(weapon):
     '''draws the spreadgun reticle'''
     thick = 4;
     col = (0, 100, 255);
-
+    
     ret1 = poly((0,0), (1,.6));
     tpos = transform((20,10), (0,0), p1.angle);
     ret1.pos = addPoints(tpos, p1.pos);
@@ -421,10 +418,10 @@ class spreadGun(weapon):
     ret2.color = col;
     ret2.scale = this.ammo / 3;
     ret2.angle = p1.angle;
-
+    
     maincam.toDraw(ret1);
     maincam.toDraw(ret2);
-
+  
   def fire(this, pos, aim, vel):
     '''releases 5 evenly spread projectiles'''
     this.ammo -= 1;
@@ -459,7 +456,7 @@ class ionCannon(weapon):
     '''draws the ion cannon's reticle'''
     thick = 3;
     col = (0, 255, 255);
-
+    
     ret1 = poly((0,0), (1,0));
     tpos = transform((20,5), (0,0), p1.angle);
     ret1.pos = addPoints(tpos, p1.pos);
@@ -474,10 +471,10 @@ class ionCannon(weapon):
     ret2.color = col;
     ret2.scale = this.ammo / 10;
     ret2.angle = p1.angle;
-
+    
     maincam.toDraw(ret1);
     maincam.toDraw(ret2);
-
+  
   def fire(this, pos, aim, vel):
     '''fires a part of the beam'''
     this.ammo -= 1;
@@ -498,7 +495,7 @@ class ionCannon(weapon):
       this.firewait = this.fireDelay;
       return True;
     return False;
-
+  
 class projectile:
   def __init__(this, friendly, pos = (0,0), aim = 0, spd = 10):
     '''initializes a projectile instance'''
@@ -539,7 +536,7 @@ class projectile:
         projectiles.remove(bul);
         if(this in projectiles):
           this.life = 0;
-
+    
   def checkEnemyCollisions(this):
     '''checks for collisions with enemies'''
     for en in enemies:
@@ -553,7 +550,7 @@ class projectile:
         continue; #skips the instance if it is not an asteroid
       if(collision(ast, this)):
         this.hit(ast);
-
+  
   def hit(this, en):
     if(not this.friendly):
       if(baseIs(en, projectile)):
@@ -566,7 +563,7 @@ class projectile:
     this.burst();
     if(baseIs(en, enemy)):
       this.enHit(en);
-
+      
   def enHit(this, en):
     '''hits a specified enemy'''
     #damages the enemy instance it collides with
@@ -575,7 +572,7 @@ class projectile:
     en.health -= this.damage;
     if(en.health <= 0):
       en.kill();
-
+    
   def burst(this):
     '''the visual effect of the projectile's collision'''
     if(this.damage >= 1):
@@ -587,7 +584,7 @@ class projectile:
       part = particle(this.pos, randPoint(5), (255,255,0));
       part.damping = 0.9;
       particles.append(part);
-
+  
   def draw(this):
     '''adds the projectile to the main drawQuery'''
     if(this.form == None):
@@ -643,13 +640,13 @@ class missile(projectile):
         this.seek(this.lock);
       if(not this.lock in enemies):
         this.lock = None;
-
+  
   def search(this):
     '''seeks out an enemy to lock onto'''
     for en in enemies:
       if(distance(en.pos, this.pos) <= 150):
         this.lock = en;
-
+    
   def seek(this, en):
     '''homes in to an enemy'''
     if(not en in enemies):
@@ -659,7 +656,7 @@ class missile(projectile):
     #adds velocity toward the target
     this.vel = addPoints(this.vel, multPoint(normal(this.pos, en.pos), 1));
     this.thrustParticle();
-
+    
   def thrustParticle(this):
     '''emits particles to show that it is seeking an enemy'''
     force = multPoint(xyComponent(this.form.angle - math.pi), 0.7);
@@ -684,7 +681,7 @@ class missile(projectile):
           en.health -= 2;
         if(en.health <= 0):
           en.kill();
-
+    
   def burst(this):
     '''creates a small flash and emits some explosion particles'''
     sounds[13].play();
@@ -746,7 +743,7 @@ class enemy:
     '''kills the enemy instance'''
     this.itemDrop(); #handles dropping powerups
     this.health = None; #removes the enemy from the world
-
+    
   def itemDrop(this):
     '''has a chance to drop an item'''
     if(len(items) > 1):
@@ -757,7 +754,7 @@ class enemy:
     #~1 in every 20 kills an item is dropped
     power = item.randItem(this.pos);
     items.append(power);
-
+    
   def update(this):
     '''handles the logic step for the current enemy instance'''
     if(this.health == None):
@@ -784,7 +781,7 @@ class asteroid(enemy):
     this.radius = radius;
     this.health = this.radius / 10 + 1;
     this.form = poly.circleGon(7, radius);
-
+  
   def kill(this):
     '''destroys the asteroid object'''
     enemy.kill(this);
@@ -808,12 +805,12 @@ class asteroid(enemy):
       part.life = random.randrange(50, 75);
       particles.append(part);
     getPoints(math.ceil(this.radius / 20) * 10); #worth more points the bigger the asteroid
-
+    
   def itemDrop(this):
     '''only has a chance to drop an item if is large enough'''
     if(this.radius > 10):
       enemy.itemDrop(this);
-
+  
   def draw(this):
     '''renders the current asteroid instance'''
     this.form.pos = this.pos;
@@ -834,7 +831,7 @@ class alien(enemy):
     ang = direction(subtractPoints(p1.pos, this.pos)) + randRange(1, -1);
     this.vel = multPoint(xyComponent(ang), 2.5);
     this.firedelay = 60;
-
+  
   def update(this):
     '''handles the logic step for the current alien instance'''
     enemy.update(this);
@@ -843,7 +840,7 @@ class alien(enemy):
       #only fires if it is within a certain distance of the player
       if(this.firedelay <= 0):
         this.fire();
-
+        
   def kill(this):
     '''kills the alien instance'''
     enemy.kill(this);
@@ -858,7 +855,7 @@ class alien(enemy):
       if(randChance(50)):
         part.color = (150, 0, 0);
       particles.append(part);
-
+  
   def fire(this):
     '''fires a projectile at the player'''
     #resets the fire delay to a second so it doesn't fire a large amount of projectiles
@@ -870,9 +867,9 @@ class alien(enemy):
     #the alien turns in a random direction when it fires
     ang = direction(this.vel);
     mag = distance(this.vel)
-    ang += randRange(1, -1);
+    ang += randRange(1, -1); 
     this.vel = multPoint(xyComponent(ang), mag);
-
+  
   def draw(this):
     '''renders the alien'''
     this.form.pos = this.pos;
@@ -895,7 +892,7 @@ class basher(enemy):
     sounds[10].play();
     getPoints(200);
     this.burst();
-
+    
   def burst(this):
     for i in range(20):
       if(randChance(50)):
@@ -975,8 +972,8 @@ class motherCow(enemy):
         pos = addPoints(this.pos, pos);
         proj = enemyBullet(pos, ang, 4);
         projectiles.append(proj);
-
-
+      
+  
   def draw(this):
     this.form.angle = this.angle;
     this.form.pos = this.pos;
@@ -985,7 +982,7 @@ class motherCow(enemy):
     this.form.fill = (50, 20, 0);
     this.form.scale = 5;
     maincam.toDraw(this.form);
-
+  
 #the player object, what the user is controlling
 class player:
   def __init__(this):
@@ -1032,14 +1029,14 @@ class player:
         this.powerWep = None;
       else:
         this.curWep = weapon();
-
+  
   def damage(this,dmg):
     '''damages the player a specified amount'''
     if(this.health == None):
       return;
     sounds[17].play();
     this.health -= dmg;
-
+  
   def kill(this):
     '''kills the player'''
     global iteration;
@@ -1056,13 +1053,13 @@ class player:
         part.color = (0, 150, 0);
       particles.append(part);
     iteration = 0; #resets the global iteration to act as a makeshift timer so the transition to the end game menu isn't instantaneous
-
+    
   def applySpeedLimit(this):
     '''makes sure the player doesn't go faster than a certain amount as this can cause unforseen consequences'''
     this.rotvel *= 0.93;
     if(distance(this.vel) > 5):
       this.vel = multPoint(this.vel, 0.97);
-
+    
   def control(this):
     '''handles the player controls'''
     acceleration = 0.15; #speed of movement
@@ -1093,19 +1090,19 @@ class player:
       part.color = (200, 200, 0);
     part.thickness = 3
     particles.append(part);
-
+  
   def curWep(this):
     '''returns a power weapon if the player has one equipped, otherwise returns it's primary weapon'''
     if(this.powerWep == None):
       return this.primaryWep;
     return this.powerWep;
-
+  
   def fire(this):
     '''triggers the currently equipped weapon'''
     wepfire = this.curWep();
     if(wepfire.trigger(this.pos, this.angle, this.vel)):
       this.powerEvent(1, wepfire);
-
+  
   def draw(this):
     '''draws the player to the global cam query'''
     if(this.health == None):
@@ -1154,7 +1151,7 @@ class item:
         return deflectorShield(pos);
       if(rand == -3):
         return quadShooter(pos);
-
+  
   def grab(this):
     '''gives the item to the specified player'''
     if(this in items):
@@ -1186,7 +1183,7 @@ class item:
     if(collision(this, p1)):
        this.grab();
     this.life -= 1;
-
+    
   def draw(this):
     '''renders the item object'''
     col = (0,0,255);
@@ -1196,7 +1193,7 @@ class item:
     if(this.life <= 200):
       if(this.life % 10 < 5): #item blinking intensifies if it close to dissapearing
         col = (0,0,0);
-
+    
     this.form.pos = this.pos;
     this.form.fill = incol;
     this.form.color = col;
@@ -1268,7 +1265,7 @@ class deflectorShield(item):
     if(not(this.matrix[0] or this.matrix[1] or this.matrix[2] or this.matrix[3] or this.matrix[4] or this.matrix[5])):
       if(this in p1.powerups):
         p1.powerups.remove(this);
-
+    
     for i in range(6):
       if(not this.matrix[i]):
         continue;
@@ -1301,11 +1298,11 @@ class deflectorShield(item):
         tform.thickness = 3;
         maincam.toDraw(tform);
       itr += 1;
-
+      
   def replenish(this):
     item.replenish(this);
     this.matrix = [True, True, True, True, True, True];
-
+    
 #quadShooter fires your weapon in four different directions
 class quadShooter(item):
   def __init__(this, pos):
@@ -1358,13 +1355,13 @@ def handleInput():
   #this is due to the get_pressed function being called after the SDL_GetKeyState() in the
   #gamepy engine, which pump() resets
   pygame.event.pump();
-
+  
   #stops the function if the game does not have focus
   if(not pygame.key.get_focused()):
     return;
   global activecontr;
   global lastactivec;
-
+  
   itr = 0;
   for pressed in activecontr:
     lastactivec[itr] = pressed;
@@ -1376,7 +1373,7 @@ def handleInput():
   activecontr[3] = keyspressed[controls[3]];
   activecontr[4] = keyspressed[controls[4]];
   activecontr[5] = keyspressed[controls[5]] or keyspressed[pygame.K_RETURN];
-
+  
   handleGlobalControls(keyspressed);
 
 def getTappedKeys():
@@ -1394,7 +1391,7 @@ def getTappedKeys():
     if(key and not lastkeyspr[itr]):
       r.append(itr);
     itr += 1;
-
+  
   lastkeyspr = keyspr;
   return r;
 
@@ -1419,13 +1416,13 @@ def init():
   pygame.display.set_caption("SPACEGAME.EXE");
   pygame.mouse.set_visible(False);
   screen = pygame.display.set_mode(size);
-  font = pygame.font.Font(compilePath("font.ttf"), 32);
+  font = pygame.font.Font(compilePath("font.ttf"), 32);  
   tinyfont = pygame.font.Font(compilePath("font.ttf"), 16);
   loadSprites();
   loadSounds();
   loadHiscore();
   gotoMode(0);
-
+  
   print("Done!");
 
 def startGame():
@@ -1443,13 +1440,13 @@ def startGame():
   global particles;
   global enemyspawndelay;
   global cowspawndelay;
-
+  
   enemies = list();
   stars = list();
   projectiles = list();
   items = list();
   particles = list();
-
+  
   gotoMode(1);
   score = 0;
   scoredrop = 500;
@@ -1458,14 +1455,14 @@ def startGame():
   scoredropper = None;
   maincam = camera();
   p1 = player();
-
+  
   #testpow = item((0, 40), 2);
   #items.append(testpow);
   #testbas = basher((100,100));
   #enemies.append(testbas);
   #testmtc = motherCow((100,100));
   #enemies.append(testmtc);
-
+  
   #fills in the stars
   for i in range(200):
     stars.append(randPoint(500));
@@ -1523,7 +1520,7 @@ def loadSounds():
   sounds.append(pygame.mixer.Sound(os.path.join("Sounds","MenuSelect.wav")));
   sounds.append(pygame.mixer.Sound(os.path.join("Sounds","Shoot_Default.wav"))); #2) weapon firing
   sounds.append(pygame.mixer.Sound(os.path.join("Sounds","Shoot_RapidGun.wav")));
-  sounds.append(pygame.mixer.Sound(os.path.join("Sounds","Shoot_IonCannon.wav")));
+  sounds.append(pygame.mixer.Sound(os.path.join("Sounds","Shoot_IonCannon.wav"))); 
   sounds.append(pygame.mixer.Sound(os.path.join("Sounds","Shoot_SpreadGun.wav")));
   sounds.append(pygame.mixer.Sound(os.path.join("Sounds","Shoot_MissileLauncher.wav")));
   sounds.append(pygame.mixer.Sound(os.path.join("Sounds","PowerUp.wav")));
@@ -1580,7 +1577,7 @@ def select(selection):
 def saveScore(name, points):
   '''saves a score under a specified name to the scoreboard'''
   scores = loadScoreboard();
-  newscores = list();
+  newscores = list();  
   itr = 0;
   pt = points;
   for scor in scores:
@@ -1595,7 +1592,7 @@ def saveScore(name, points):
       newscores.remove(newscores[5]);
     except:
       break;
-
+  
   sbfile = open(os.path.join(fpath, 'scores'), 'w');
   for scor in newscores:
     sbfile.write(scor[0] + ':' + str(scor[1]) + '\n');
@@ -1610,7 +1607,7 @@ def gotoMode(modenum):
     loadTitlesprite();
   if(mode == 0):
     disposeTitlesprite();
-
+  
   selection = 0;
   mode = modenum;
   iteration = 0;
@@ -1619,7 +1616,7 @@ def loadTitlesprite():
   '''loads the title screen background image'''
   global titlesprite;
   titlesprite = pygame.image.load(compilePath(os.path.join("Graphics","title.png")));
-
+  
 def disposeTitlesprite():
   '''disposes the title screen background image'''
   titlesprite = None;
@@ -1655,12 +1652,12 @@ def updateNoCol():
   global iteration;
   updateModeNoCol();
   iteration += 1;
-
+    
 def updateMode():
   '''handles update logic based on the current game mode'''
   if(mode == 0):    #main menu
     updateMenu();
-  elif(mode == 1):  #gameplay
+  elif(mode == 1):  #gameplay 
     updateGameplay();
   elif(mode == 2):  #name entry
     updateNameEntry();
@@ -1671,7 +1668,7 @@ def updateModeNoCol():
   '''handles update logic based on the current game mode'''
   if(mode == 0):    #main menu
     updateMenu();
-  elif(mode == 1):  #gameplay
+  elif(mode == 1):  #gameplay 
     updateGameplayNoCol();
   elif(mode == 2):  #name entry
     updateNameEntry();
@@ -1687,7 +1684,7 @@ def updateMenu():
 
 def updateGameplay():
   '''handles the update logic for in-game'''
-  for part in particles:
+  for part in particles:    
     part.update();  #updates all the particles
   for proj in projectiles:
     proj.update();  #updates all the projectiles
@@ -1706,10 +1703,10 @@ def updateGameplay():
   spawnStars();     #spawns/despawns stars around the player as they move
   if(p1.health == None and iteration > 60): #acts as a makeshift timer to tell the screen to transition to the end screen after the player has been dead for a second
     lose();
-
+  
 
 def updateGameplayNoCol():
-  for part in particles:
+  for part in particles:    
     part.update();  #updates all the particles
   for proj in projectiles:
     proj.update();  #updates all the projectiles
@@ -1760,14 +1757,14 @@ def updateNameEntry():
   if(pygame.K_RETURN in tkeys):
     saveScore(p1, score);
     gotoMode(3);
-
+  
 def updateScoreboard():
   '''updates the scoreboard menu screen'''
   global selection;
   handleMenuControls();
   if (selection > 1):
     selection = 1;
-
+  
 def draw():
   '''rendering logic handled here'''
   if(screen == None):
@@ -1787,7 +1784,7 @@ def drawMode():
     drawNameEntry();
   elif(mode == 3):  #score board
     drawScoreboard();
-
+  
 def drawMenu():
   '''draws the main title screen'''
   buttonpos = (200,450);
@@ -1813,10 +1810,10 @@ def drawMenu():
   #renders the background
   screen.blit(titlesprite, (0,0));
   screen.blit(selector, addPoints(buttonpos, (-15, selection * 40)));
-  screen.blit(startButton, addPoints(buttonpos, (0, 0)));
-  screen.blit(scoresButton, addPoints(buttonpos, (0, 40)));
+  screen.blit(startButton, addPoints(buttonpos, (0, 0))); 
+  screen.blit(scoresButton, addPoints(buttonpos, (0, 40))); 
   screen.blit(exitButton, addPoints(buttonpos, (0, 80)));
-
+  
 def drawGameplay():
   '''draws the gameplay'''
   drawStars();
@@ -1855,7 +1852,7 @@ def drawNameEntry():
   title1 = font.render("YOU PLACED IN THE ", False, (255,255,255));
   title2 = font.render("SCOREBOARD!", False, sccol);
   title3 = font.render("ENTER YOUR NAME BELOW:", False, (255,255,255));
-
+  
   screen.blit(title1, (10, 300));
   screen.blit(title2, (350, 300));
   screen.blit(title3, (85, 340));
@@ -1864,7 +1861,7 @@ def drawNameEntry():
     ntex += '_';
   nametext = font.render(ntex, False, ncol);
   screen.blit(nametext,(180, 400));
-
+  
 def drawScoreboard():
   '''draws the scoreoard screen'''
   buttonpos = (200, 450);
@@ -1886,9 +1883,9 @@ def drawScoreboard():
     menuButton = font.render("MAIN MENU", False, selcol);
   else:
     menuButton = font.render("MAIN MENU", False, (255,255,255));
-
+  
   selector = font.render(">", False, (255,255,255));
-
+  
   itr = 0;
   for scor in scores:
     scoreentry = font.render(str(itr + 1) + '. ' + scor[0], False, (0,255,0));
@@ -1897,7 +1894,7 @@ def drawScoreboard():
     screen.blit(scoreentry, (450, 150 + itr * 40));
     itr += 1;
 
-  screen.blit(title, (150, 50));
+  screen.blit(title, (150, 50));   
   screen.blit(selector, addPoints(buttonpos, (-15, selection * 40)));
   if(score > 0):
     screen.blit(scoretext, (150, 380));
@@ -1931,7 +1928,7 @@ def handleLag():
   if(mode != 1):
     return;
   catchup();
-
+  
   partsr = 0;
   asterr = 0;
   for part in particles:
@@ -1959,7 +1956,7 @@ def catchup():
     itr += 1;
   maincam.drawQuery = list();
   #print("caught up " + str(itr) + " frames");
-
+  
 def collidingColchecks(pos, radius):
   r = [];
   dist = distance(pos, p1.pos);
@@ -1993,7 +1990,7 @@ def handleCollisions():
           p1.damage(1);
           p1.powerEvent(0, op);
           op.hit(p1);
-      else:
+      else:  
         p1.damage(1);
         p1.powerEvent(0, op);
         op.hit(p1);
@@ -2044,7 +2041,7 @@ def collectBodies():
       del projectiles[itr];
       continue;
     itr += 1;
-
+      
 def handleColLists():
   global colcheck0;
   global colcheck1;
@@ -2107,7 +2104,7 @@ def spawnEnemies():
     for i in range(int(aliencount)):
       en = alien(addPoints(randCirc(500), p1.pos));
       enemies.append(en);
-
+    
     if(int(bashercount) > 0):
       for i in range(random.randrange(int(bashercount))):
         bs = basher(addPoints(randCirc(randRange(600, 500)), p1.pos));
