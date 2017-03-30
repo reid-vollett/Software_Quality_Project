@@ -10,7 +10,7 @@ Credit for source code provided from Technostalgic under GNU General Public Lice
 
 Github: https://github.com/Technostalgic/Asteroids-Too 
 
-Website: http:\\www.soundlessdev.itch.io\asteroids-too
+Website: https://soundlessdev.itch.io\asteroids-too
 
 Source Code Cloned: March 29th, 2017
 
