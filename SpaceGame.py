@@ -15,6 +15,8 @@ import pygame
 from ezmath import *
 
 import particle as par
+import weapons as wep
+
 # used for compiling with pyinstaller
 fpath = '.'
 if getattr(sys, 'frozen', False):
