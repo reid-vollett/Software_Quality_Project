@@ -13,8 +13,8 @@ import sys
 import time
 import pygame
 from ezmath import *
+from src import particle as par
 
-import particle as par
 # used for compiling with pyinstaller
 fpath = '.'
 if getattr(sys, 'frozen', False):
@@ -1760,7 +1760,7 @@ def updateGameplay():
 
 def updateGameplayNoCol():
     for part in particles:
-        part.update()  # updates all the particles
+        part.update(particles, p1)  # updates all the particles
     for proj in projectiles:
         proj.update()  # updates all the projectiles
     for en in enemies:
