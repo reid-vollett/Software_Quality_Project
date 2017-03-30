@@ -11,10 +11,10 @@ import os
 import random
 import sys
 import time
-
 import pygame
 from ezmath import *
 
+import particle as par
 # used for compiling with pyinstaller
 fpath = '.'
 if getattr(sys, 'frozen', False):
@@ -82,46 +82,11 @@ controls = [ \
     ]
 
 
-class particle:
-    def __init__(this, pos, vel, color=(255, 255, 0), thickness=2):
-        '''initializes a particle instance'''
-        this.pos = pos
-        this.vel = vel
-        this.radius = 0
-        this.color = color
-        this.life = 10
-        this.thickness = thickness
-        this.damping = 1
-
-    def update(this):
-        '''handles logic for a particle instance'''
-        if (this.life <= 0 or distance(p1.pos, this.pos) > 500):
-            particles.remove(this)
-            return
-
-        this.vel = multPoint(this.vel, this.damping)
-        this.pos = addPoints(this.pos, this.vel)
-        this.life -= 1
-
-    def draw(this):
-        '''handles rendering for a particle instance'''
-        # particles are rendered as a line whose length is dependent upon their speed
-        length = (distance(this.vel))
-        # kills the particle if it is less than a pixel long
-        if (length < 1):
-            life = 0
-        # tform is the temporary form the particle takes during renduring to give the camera an object to render
-        tform = poly((0, 0), (length, 0))
-        tform.pos = this.pos
-        tform.angle = direction(this.vel)
-        tform.color = this.color
-        tform.thickness = this.thickness
-        maincam.toDraw(tform)
 
 
-class motherCowDeath(particle):
+class motherCowDeath(par.particle):
     def __init__(this, pos, vel):
-        particle.__init__(this, pos, vel, (255, 255, 0), 2)
+        par.particle.__init__(this, pos, vel, (255, 255, 0), 2)
         this.life = 25
 
     def update(this):
@@ -142,7 +107,7 @@ class motherCowDeath(particle):
         blast.pos = tpos
         maincam.toDraw(blast)
         for p in range(6):
-            part = particle(addPoints(tpos, randCirc(blast.scale / 2)), randCirc(5), blast.color, 3)
+            part = par.particle(addPoints(tpos, randCirc(blast.scale / 2)), randCirc(5), blast.color, 3)
             part.life = randRange(30, 10)
             particles.append(part)
 
@@ -606,7 +571,7 @@ class projectile:
             sounds[14].play()
         for i in range(random.randrange(4, 8)):
             # add some pretty particles
-            part = particle(this.pos, randPoint(5), (255, 255, 0))
+            part = par.particle(this.pos, randPoint(5), (255, 255, 0))
             part.damping = 0.9
             particles.append(part)
 
@@ -638,7 +603,7 @@ class ionBullet(projectile):
     def burst(this):
         '''the bullet produces a small green flash when it collides'''
         for i in range(2):
-            part = particle(this.pos, randPoint(30), (0, 255, 50))
+            part = par.particle(this.pos, randPoint(30), (0, 255, 50))
             part.damping = 0.8
             part.thickness = 4
             particles.append(part)
@@ -689,7 +654,7 @@ class missile(projectile):
     def thrustParticle(this):
         '''emits particles to show that it is seeking an enemy'''
         force = multPoint(xyComponent(this.form.angle - math.pi), 0.7)
-        part = particle(addPoints(this.pos, randPoint(randRange(4, 6))), multPoint(force, 5), (255, 255, 0))
+        part = par.particle(addPoints(this.pos, randPoint(randRange(4, 6))), multPoint(force, 5), (255, 255, 0))
         part.vel = addPoints(part.vel, this.vel)
         part.life = random.randrange(5, 10)
         part.damping = 0.8
@@ -715,7 +680,7 @@ class missile(projectile):
         '''creates a small flash and emits some explosion particles'''
         sounds[13].play()
         for i in range(random.randrange(5, 10)):
-            part = particle(this.pos, randCirc(5), (255, 255, 0))
+            part = par.particle(this.pos, randCirc(5), (255, 255, 0))
             particles.append(part)
         blast = circ()
         blast.pos = this.pos
@@ -836,7 +801,7 @@ class asteroid(enemy):
             sounds[9].play()
         for i in range(3 + int(this.radius / 5)):
             # emits particles of death
-            part = particle(addPoints(this.pos, randPoint(this.radius)), 0, (200, 120, 90), 4)
+            part = par.particle(addPoints(this.pos, randPoint(this.radius)), 0, (200, 120, 90), 4)
             if (randChance(50)):
                 part.color = (130, 100, 50)
             part.vel = multPoint(subtractPoints(part.pos, this.pos), 0.3)
@@ -889,7 +854,7 @@ class alien(enemy):
         for i in range(10):
             # releases some particles to make frags more satisfying
             off = randPoint(5)
-            part = particle(addPoints(this.pos, off), addPoints(this.vel, off), (255, 0, 0), 3)
+            part = par.particle(addPoints(this.pos, off), addPoints(this.vel, off), (255, 0, 0), 3)
             part.life = randRange(10, 25)
             if (randChance(50)):
                 part.color = (150, 0, 0)
@@ -943,7 +908,7 @@ class basher(enemy):
                 col = (255, 150, 0)
             else:
                 col = (255, 255, 0)
-            part = particle(this.pos, vel, col, 4)
+            part = par.particle(this.pos, vel, col, 4)
             part.life = randRange(30, 10)
             particles.append(part)
 
@@ -1095,7 +1060,7 @@ class player:
         for i in range(20):
             # shoots out green particles on death
             off = randPoint(10)
-            part = particle(addPoints(this.pos, off), off, (0, 255, 0))
+            part = par.particle(addPoints(this.pos, off), off, (0, 255, 0))
             part.thickness = 4
             part.life = random.randrange(40, 100)
             if (randChance(50)):
@@ -1133,7 +1098,7 @@ class player:
     def thrustParticle(this, reldir):
         '''emits particles to show acceleration'''
         force = multPoint(xyComponent(this.angle + reldir), 0.7)
-        part = particle(addPoints(this.pos, randPoint(5)), multPoint(force, 5), (255, 150, 0))
+        part = par.particle(addPoints(this.pos, randPoint(5)), multPoint(force, 5), (255, 150, 0))
         part.vel = addPoints(part.vel, this.vel)
         part.life = random.randrange(5, 10)
         if (randChance(50)):
@@ -1303,11 +1268,11 @@ class overShield(item):
 
     def burst(this):
         for i in range(15):
-            part = particle(this.pos, p1.vel, (0, 200, 255), 3)
+            part = par.particle(this.pos, p1.vel, (0, 200, 255), 3)
             off = randCirc(10)
             part.vel = addPoints(part.vel, off)
             part.damping = 0.95
-            particle.life = 100
+            par.particle.life = 100
             part.pos = addPoints(p1.pos, off * 3)
             particles.append(part)
 
@@ -1772,7 +1737,7 @@ def updateMenu():
 def updateGameplay():
     '''handles the update logic for in-game'''
     for part in particles:
-        part.update()  # updates all the particles
+        part.update(particles, p1)  # updates all the particles
     for proj in projectiles:
         proj.update()  # updates all the projectiles
     for en in enemies:
@@ -1914,7 +1879,7 @@ def drawGameplay():
     '''draws the gameplay'''
     drawStars()
     for part in particles:
-        part.draw()  # draws all the particles
+        part.draw(poly, maincam)  # draws all the particles
     for power in items:
         power.draw()  # draws all the items
     for proj in projectiles:
