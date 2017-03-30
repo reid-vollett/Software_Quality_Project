@@ -6,13 +6,13 @@
 # Name: Isaiah Smith
 # Github: https://github.com/Technostalgic/Asteroids-Too
 
-import os;
-import sys;
-import pygame;
-import time;
-import random;
 import math;
-# a little library that I created to help out with common video game math
+import os;
+import random;
+import sys;
+import time;
+
+import pygame;
 from ezmath import *;
 
 # used for compiling with pyinstaller
