@@ -13,8 +13,8 @@ import sys
 import time
 import pygame
 from ezmath import *
-
-import particle as par
+from src import particle as par
+#import particle as par
 import weapons as wep
 
 # used for compiling with pyinstaller
@@ -74,13 +74,13 @@ lastactivec = [False, False, False, False, False,
                False]  # controls that were held down last frame, used for menu navigation
 
 # default controls:
-controls = [ \
-    pygame.K_UP, \
-    pygame.K_DOWN, \
-    pygame.K_RIGHT, \
-    pygame.K_LEFT, \
-    pygame.K_c, \
-    pygame.K_SPACE \
+controls = [
+    pygame.K_UP,
+    pygame.K_DOWN,
+    pygame.K_RIGHT,
+    pygame.K_LEFT,
+    pygame.K_c,
+    pygame.K_SPACE
     ]
 
 
@@ -2197,14 +2197,6 @@ def spawnEnemies():
             cowspawndelay = 1200
             cow = motherCow(addPoints(randCirc(500), p1.pos))
             enemies.append(cow)
-
-
-def compilePath(path):
-    '''ignore, used for compiling to a standalone exe with pyinstaller, ended up not doing it'''
-    if hasattr(sys, "_MEIPASS"):
-        return os.path.join(sys._MEIPASS, path)
-    return os.path.join(os.path.abspath('.'), path)
-
 
 def drawStars():
     '''draws the stars'''
