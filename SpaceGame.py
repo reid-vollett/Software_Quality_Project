@@ -2198,6 +2198,14 @@ def spawnEnemies():
             cow = motherCow(addPoints(randCirc(500), p1.pos))
             enemies.append(cow)
 
+
+def compilePath(path):
+    '''ignore, used for compiling to a standalone exe with pyinstaller, ended up not doing it'''
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, path)
+    return os.path.join(os.path.abspath('.'), path)
+
+
 def drawStars():
     '''draws the stars'''
     itr = 0
