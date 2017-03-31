@@ -13,9 +13,35 @@ import sys
 import time
 import pygame
 from ezmath import *
+from gameFunctions import *
 
-import particle as par
-import weapons as wep
+import alien
+import asteroid
+import basher
+import camera
+import circ
+import deflectorShield
+import enemy
+import enemyBullet
+import gameFunctions
+import img
+import ionBullet
+import ionCannon
+import item
+import missile
+import missileLauncher
+import motherCow
+import motherCowDeath
+import overShield
+import particle
+import player
+import poly
+import projectile
+import quadShooter
+import rapidGun
+import shape
+import spreadGun
+import weapon
 
 # used for compiling with pyinstaller
 fpath = '.'
@@ -85,10 +111,10 @@ controls = [ \
 
 
 
-
-class motherCowDeath(par.particle):
+"""
+class motherCowDeath(particle.particle):
     def __init__(this, pos, vel):
-        par.particle.__init__(this, pos, vel, (255, 255, 0), 2)
+        particle.particle.__init__(this, pos, vel, (255, 255, 0), 2)
         this.life = 25
 
     def update(this):
@@ -109,7 +135,7 @@ class motherCowDeath(par.particle):
         blast.pos = tpos
         maincam.toDraw(blast)
         for p in range(6):
-            part = par.particle(addPoints(tpos, randCirc(blast.scale / 2)), randCirc(5), blast.color, 3)
+            part = particle.particle(addPoints(tpos, randCirc(blast.scale / 2)), randCirc(5), blast.color, 3)
             part.life = randRange(30, 10)
             particles.append(part)
 
@@ -573,7 +599,7 @@ class projectile:
             sounds[14].play()
         for i in range(random.randrange(4, 8)):
             # add some pretty particles
-            part = par.particle(this.pos, randPoint(5), (255, 255, 0))
+            part = particle.particle(this.pos, randPoint(5), (255, 255, 0))
             part.damping = 0.9
             particles.append(part)
 
@@ -605,7 +631,7 @@ class ionBullet(projectile):
     def burst(this):
         '''the bullet produces a small green flash when it collides'''
         for i in range(2):
-            part = par.particle(this.pos, randPoint(30), (0, 255, 50))
+            part = particle.particle(this.pos, randPoint(30), (0, 255, 50))
             part.damping = 0.8
             part.thickness = 4
             particles.append(part)
@@ -656,7 +682,7 @@ class missile(projectile):
     def thrustParticle(this):
         '''emits particles to show that it is seeking an enemy'''
         force = multPoint(xyComponent(this.form.angle - math.pi), 0.7)
-        part = par.particle(addPoints(this.pos, randPoint(randRange(4, 6))), multPoint(force, 5), (255, 255, 0))
+        part = particle.particle(addPoints(this.pos, randPoint(randRange(4, 6))), multPoint(force, 5), (255, 255, 0))
         part.vel = addPoints(part.vel, this.vel)
         part.life = random.randrange(5, 10)
         part.damping = 0.8
@@ -682,7 +708,7 @@ class missile(projectile):
         '''creates a small flash and emits some explosion particles'''
         sounds[13].play()
         for i in range(random.randrange(5, 10)):
-            part = par.particle(this.pos, randCirc(5), (255, 255, 0))
+            part = particle.particle(this.pos, randCirc(5), (255, 255, 0))
             particles.append(part)
         blast = circ()
         blast.pos = this.pos
@@ -803,7 +829,7 @@ class asteroid(enemy):
             sounds[9].play()
         for i in range(3 + int(this.radius / 5)):
             # emits particles of death
-            part = par.particle(addPoints(this.pos, randPoint(this.radius)), 0, (200, 120, 90), 4)
+            part = particle.particle(addPoints(this.pos, randPoint(this.radius)), 0, (200, 120, 90), 4)
             if (randChance(50)):
                 part.color = (130, 100, 50)
             part.vel = multPoint(subtractPoints(part.pos, this.pos), 0.3)
@@ -856,7 +882,7 @@ class alien(enemy):
         for i in range(10):
             # releases some particles to make frags more satisfying
             off = randPoint(5)
-            part = par.particle(addPoints(this.pos, off), addPoints(this.vel, off), (255, 0, 0), 3)
+            part = particle.particle(addPoints(this.pos, off), addPoints(this.vel, off), (255, 0, 0), 3)
             part.life = randRange(10, 25)
             if (randChance(50)):
                 part.color = (150, 0, 0)
@@ -910,7 +936,7 @@ class basher(enemy):
                 col = (255, 150, 0)
             else:
                 col = (255, 255, 0)
-            part = par.particle(this.pos, vel, col, 4)
+            part = particle.particle(this.pos, vel, col, 4)
             part.life = randRange(30, 10)
             particles.append(part)
 
@@ -1062,7 +1088,7 @@ class player:
         for i in range(20):
             # shoots out green particles on death
             off = randPoint(10)
-            part = par.particle(addPoints(this.pos, off), off, (0, 255, 0))
+            part = particle.particle(addPoints(this.pos, off), off, (0, 255, 0))
             part.thickness = 4
             part.life = random.randrange(40, 100)
             if (randChance(50)):
@@ -1100,7 +1126,7 @@ class player:
     def thrustParticle(this, reldir):
         '''emits particles to show acceleration'''
         force = multPoint(xyComponent(this.angle + reldir), 0.7)
-        part = par.particle(addPoints(this.pos, randPoint(5)), multPoint(force, 5), (255, 150, 0))
+        part = particle.particle(addPoints(this.pos, randPoint(5)), multPoint(force, 5), (255, 150, 0))
         part.vel = addPoints(part.vel, this.vel)
         part.life = random.randrange(5, 10)
         if (randChance(50)):
@@ -1270,11 +1296,11 @@ class overShield(item):
 
     def burst(this):
         for i in range(15):
-            part = par.particle(this.pos, p1.vel, (0, 200, 255), 3)
+            part = particle.particle(this.pos, p1.vel, (0, 200, 255), 3)
             off = randCirc(10)
             part.vel = addPoints(part.vel, off)
             part.damping = 0.95
-            par.particle.life = 100
+            particle.particle.life = 100
             part.pos = addPoints(p1.pos, off * 3)
             particles.append(part)
 
@@ -1378,7 +1404,7 @@ class quadShooter(item):
     def grab(this):
         item.grab(this)
         this.life = 500
-
+"""
 
 def handleInput():
     '''handles receiving input from the keyboard'''
@@ -1502,7 +1528,7 @@ def startGame():
     for i in range(200):
         stars.append(randPoint(500))
 
-
+"""
 def getPoints(pts):
     global score
     global scoredrop
@@ -1514,7 +1540,7 @@ def getPoints(pts):
             scoredrop += 500
         else:
             scoredrop += 1000
-
+"""
 
 def scoreDrops():
     global scoredropper
@@ -1762,7 +1788,7 @@ def updateGameplay():
 
 def updateGameplayNoCol():
     for part in particles:
-        part.update()  # updates all the particles
+        part.update(particle, p1)  # updates all the particles
     for proj in projectiles:
         proj.update()  # updates all the projectiles
     for en in enemies:
@@ -2027,7 +2053,7 @@ def catchup():
     maincam.drawQuery = list()
     # print("caught up " + str(itr) + " frames")
 
-
+"""
 def collidingColchecks(pos, radius):
     r = []
     dist = distance(pos, p1.pos)
@@ -2046,7 +2072,7 @@ def collidingColchecks(pos, radius):
         if (dist - radius <= 300):
             r.append(colcheck1)
     return r
-
+"""
 
 def handleCollisions():
     handleColLists()
