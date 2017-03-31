@@ -40,3 +40,6 @@ Source Code Cloned: March 29th, 2017
 * Menu Navigation / Fly: Arrow Keys
 * Shoot Weapon: C
 * Exit: Esc
+
+### Working Document
+https://docs.google.com/document/d/1kc9j95gGPbQybKr8xLRmZ_g6yBFudPAu6x7vnd741j0/edit?usp=sharing
