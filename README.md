@@ -10,7 +10,7 @@ Credit for source code provided from Technostalgic under GNU General Public Lice
 
 Github: https://github.com/Technostalgic/Asteroids-Too 
 
-Website: https://soundlessdev.itch.io\asteroids-too
+Website: https://technostalgic.itch.io/asteroids-too
 
 Source Code Cloned: March 29th, 2017
 
@@ -26,19 +26,19 @@ Source Code Cloned: March 29th, 2017
 
 ## Instructions
 ### Enemies
-* asteroid:	 breaks into smaller peices upon destruction
-* alien:		 flies around and shoots at you
-* basher:		 does not spawn til late - fairly tough, will charge at you and self destruct on collision
-* mothercow: does not spawn at beginning - extremely tough, fires projectiles in all directions and spawns aliens
+* Asteroid:	 Breaks into smaller peices upon destruction
+* Alien:		 Flies around and shoots at you
+* Basher:		 Does not spawn until late - fairly tough, will charge at you and self destruct on collision
+* Mothercow: Does not spawn at beginning - extremely tough, fires projectiles in all directions and spawns aliens
 
 ### Powerups
-* spread gun: 		  (S)weapon - 5 low damage projectiles fired at a fairly fast rate
-* rapid fire: 		  (R)weapon - bullets extremely rapidly with slightly less accuracy
-* ion cannon: 		  (I)weapon - an extremely powerful fast traveling continuous beam but is used up quickly
-* missile launcher: (M)weapon - powerful heat-seeking missiles that lock on to a nearby enemy at a slightly slower pace
-* quad shooter: 		(Q)fires your current weapon to your left, right and directly behind you
-* overshield: 		  (O)protects you from any damage that would normally kill you - single use
-* deflector shield: (D)projects a matrix 6 of shields that surround you, each deflecting a single projectile 
+* Spread gun: 		  (S)Weapon - 5 low damage projectiles fired at a fairly fast rate
+* Rapid fire: 		  (R)Weapon - Bullets extremely rapidly with slightly less accuracy
+* Ion cannon: 		  (I)Weapon - An extremely powerful fast traveling continuous beam but is used up quickly
+* Missile launcher: (M)Weapon - Powerful heat-seeking missiles that lock on to a nearby enemy at a slightly slower pace
+* Quad shooter: 		(Q)Fires your current weapon to your left, right and directly behind you
+* Overshield: 		  (O)Protects you from any damage that would normally kill you - single use
+* Deflector shield: (D)Projects a matrix 6 of shields that surround you, each deflecting a single projectile 
 
 ### Controls
 * Menu Navigation / Fly: Arrow Keys
