@@ -26,6 +26,7 @@ def suite():
     return suite
 
 if __name__ == '__main__':
+    # Usage in PyCharm is normal, to run from command line add --unittest at end
     if '--unittest' in sys.argv:
         subprocess.call([sys.executable, '-m', 'unittest', 'discover'])
 
