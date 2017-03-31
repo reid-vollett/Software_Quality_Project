@@ -14,6 +14,7 @@ import time
 import pygame
 from ezmath import *
 from src import particle as par
+from src import enemy as enemy
 #import particle as par
 import weapons as wep
 
@@ -728,61 +729,12 @@ class enemyBullet(projectile):
             this.burst
         projectile.hit(this, en)
 
-
-# the enemy base class for all enemy type objects
-class enemy:
-    def __init__(this, pos):
-        '''initializes an enemy object'''
-        this.cck = False
-        this.pos = pos
-        this.vel = (0, 0)
-        this.health = 1
-        this.radius = 10
-
-    def kill(this):
-        '''kills the enemy instance'''
-        this.itemDrop()  # handles dropping powerups
-        this.health = None  # removes the enemy from the world
-
-    def itemDrop(this):
-        '''has a chance to drop an item'''
-        if (len(items) > 1):
-            return
-        if (not randChance(5)):
-            # 95% of the time nothing is dropped
-            return
-        # ~1 in every 20 kills an item is dropped
-        power = item.randItem(this.pos)
-        items.append(power)
-
-    def update(this):
-        '''handles the logic step for the current enemy instance'''
-        if (this.health == None):
-            return
-        this.cck = False
-        this.pos = addPoints(this.pos, this.vel)
-
-    def draw(this):
-        '''default rendering for an enemy base type is to not render anything'''
-        0
-
-    def hit(this, ob):
-        if (baseIs(ob, projectile)):
-            this.projHit(ob)
-
-    def projHit(this, proj):
-        proj.hit(this)
-
-    def dead(this):
-        return this.health == None
-
-
 # asteroid is an enemy type that is passive but kills the player on contact
 # breaks into smaller peices on death unless it has a radius of 10 pixels or smaller
-class asteroid(enemy):
+class asteroid(enemy.enemy):
     def __init__(this, pos, radius):
         '''initializes an asteroid object'''
-        enemy.__init__(this, pos)
+        enemy.enemy.__init__(this, pos)
         this.radius = radius
         this.health = this.radius / 10 + 1
         this.form = poly.circleGon(7, radius)
@@ -826,7 +778,7 @@ class asteroid(enemy):
 
 
 # alien is an enemy type that flyies around and fires projectile at the player
-class alien(enemy):
+class alien(enemy.enemy):
     def __init__(this, pos):
         '''initializes an alien enemy'''
         enemy.__init__(this, pos)
@@ -887,7 +839,7 @@ class alien(enemy):
 
 
 # the basher is a bogey that charges the player
-class basher(enemy):
+class basher(enemy.enemy):
     def __init__(this, pos):
         enemy.__init__(this, pos)
         this.form = poly((5, 0), (3, 3), (0, 5), (-5, 4), (-2, 0), (-5, -4), (0, -5), (3, -3))
@@ -938,7 +890,7 @@ class basher(enemy):
 
 
 # the motherCow is an enemy that fires in eight different directions and releases alien enemies
-class motherCow(enemy):
+class motherCow(enemy.enemy):
     def __init__(this, pos):
         enemy.__init__(this, pos)
         this.buildForm()
@@ -1762,7 +1714,7 @@ def updateGameplay():
 
 def updateGameplayNoCol():
     for part in particles:
-        part.update()  # updates all the particles
+        part.update(particles, p1)  # updates all the particles
     for proj in projectiles:
         proj.update()  # updates all the projectiles
     for en in enemies:
