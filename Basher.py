@@ -29,7 +29,7 @@ class basher(enemy):
                 col = (255, 150, 0)
             else:
                 col = (255, 255, 0)
-            part = particle.particle(this.pos, vel, col, 4)
+            part = particle(this.pos, vel, col, 4)
             part.life = randRange(30, 10)
             GlobalVariables.particles.append(part)
 

@@ -14,22 +14,22 @@ def getPoints(pts, ):
         else:
             GlobalVariables.scoredrop += 1000
 
-def collidingColchecks(pos, radius, p1, colcheck0, colcheck1, colcheck2):
+def collidingColchecks(pos, radius):
     r = []
-    dist = distance(pos, p1.pos)
+    dist = distance(pos, GlobalVariables.pos)
     if (dist <= 200):
-        r.append(colcheck0)
+        r.append(GlobalVariables.colcheck0)
         if (dist + radius > 200):
-            r.append(colcheck1)
+            r.append(GlobalVariables.colcheck1)
     elif (dist <= 300):
-        r.append(colcheck1)
+        r.append(GlobalVariables.colcheck1)
         if (dist - radius <= 200):
-            r.append(colcheck0)
+            r.append(GlobalVariables.colcheck0)
         if (dist + radius > 300):
-            r.append(colcheck2)
+            r.append(GlobalVariables.colcheck2)
     else:
-        r.append(colcheck2)
+        r.append(GlobalVariables.colcheck2)
         if (dist - radius <= 300):
-            r.append(colcheck1)
+            r.append(GlobalVariables.colcheck1)
     return r
 
