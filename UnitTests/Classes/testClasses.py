@@ -2,6 +2,7 @@ import unittest
 import sys
 import os
 import subprocess
+from src import *
 
 class AlienTest(unittest.TestCase):
     def setUp(self):
