@@ -1420,30 +1420,30 @@ def handleInput():
 
 def getTappedKeys():
     '''returns they keys that are being pressed on the first frame they are being pressed'''
-    global lastkeyspr
-    if (lastkeyspr == None):
+    #global lastkeyspr
+    if (GlobalVariables.lastkeyspr == None):
         # if lastkeyspr is not defined, it sets and returns it to avoid errors
-        lastkeyspr = pygame.key.get_pressed()
-        return lastkeyspr
+        GlobalVariables.lastkeyspr = pygame.key.get_pressed()
+        return GlobalVariables.lastkeyspr
     r = list()
     keyspr = pygame.key.get_pressed()
     itr = 0
     for key in keyspr:
         '''compares the new keypress list to the keys that were presed last frame and stores them in the return list if they are new keypresses'''
-        if (key and not lastkeyspr[itr]):
+        if (key and not GlobalVariables.lastkeyspr[itr]):
             r.append(itr)
         itr += 1
 
-    lastkeyspr = keyspr
+    GlobalVariables.lastkeyspr = keyspr
     return r
 
 
 def loadHiscore():
     '''loads the highscore from the score file into the global hi variable'''
-    global hi
+    #global hi
     file = open(os.path.join(fpath, 'Scores/scores'), 'r')
     scs = file.read()
-    hi = int(scs.split('\n')[0].split(':')[1])
+    GlobalVariables.hi = int(scs.split('\n')[0].split(':')[1])
 
 
 def init():
@@ -1983,7 +1983,7 @@ def drawScore():
     '''draws the score and high score in the upper left of the screen'''
     pygame.sysfont
     text = font.render("SCORE: " + str(int(GlobalVariables.score)), False, (255, 255, 255))
-    hitext = tinyfont.render("HI: " + str(hi), False, (200, 200, 200))
+    hitext = tinyfont.render("HI: " + str(GlobalVariables.hi), False, (200, 200, 200))
     GlobalVariables.screen.blit(text, (4, 4))
     GlobalVariables.screen.blit(hitext, (4, 40))
 
