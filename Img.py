@@ -1,4 +1,4 @@
-import shape
+from Shape import shape
 
 class img(shape):
     def __init__(this, surface):

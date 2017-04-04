@@ -20,29 +20,15 @@ from Alien import alien
 from Asteroid import asteroid
 from Basher import basher
 from Camera import camera
-#import circ
-#import deflectorShield
 from Enemy import enemy
-import enemyBullet
-#import gameFunctions
-#import img
-#import ionBullet
-#import ionCannon
-import item
-#import missile
-#import missileLauncher
-import motherCow
-#import motherCowDeath
-#import overShield
-import particle
-import player
-import poly
-import projectile
-#import quadShooter
-#import rapidGun
-#import shape
-#import spreadGun
-#import weapon
+from EnemyBullet import enemyBullet
+from Item import item
+from MotherCow import motherCow
+from Particle import particle
+from Player import player
+from Poly import poly
+from Projectile import projectile
+
 
 # used for compiling with pyinstaller
 fpath = '.'
@@ -1773,13 +1759,13 @@ def updateGameplay():
         en.update()  # updates all the enemies
     for power in items:
         power.update()  # updates all the items
-    p1.update()  # updates the player
+    p1.update(activecontr, particles, sounds, projectiles)  # updates the player
     handleCollisions()
     scoreDrops()
-    maincam.orient(p1.pos, p1.angle + math.pi / 2)  # orients the camera to follow the player
+    maincam.orient(p1.pos, p1.angle + math.pi / 2, size)  # orients the camera to follow the player
     # removes necessary projectiles. they are not removed as the projectile list is updating because it causes an iteration skip which results in some projectiles not getting updated
     for proj in projectiles:
-        proj.removeCheck()
+        proj.removeCheck(projectiles)
     spawnEnemies()  # spawns/despawns enemies into the world
     spawnStars()  # spawns/despawns stars around the player as they move
     if (
@@ -1789,20 +1775,20 @@ def updateGameplay():
 
 def updateGameplayNoCol():
     for part in particles:
-        part.update(particle, p1)  # updates all the particles
+        part.update(particles, p1)  # updates all the particles
     for proj in projectiles:
         proj.update()  # updates all the projectiles
     for en in enemies:
         en.update()  # updates all the enemies
     for power in items:
         power.update()  # updates all the items
-    p1.update()  # updates the player
+    p1.update(activecontr, particles, sounds, projectiles)  # updates the player
     # handleCollisions()
     scoreDrops()
-    maincam.orient(p1.pos, p1.angle + math.pi / 2)  # orients the camera to follow the player
+    maincam.orient(p1.pos, p1.angle + math.pi / 2, size)  # orients the camera to follow the player
     # removes necessary projectiles. they are not removed as the projectile list is updating because it causes an iteration skip which results in some projectiles not getting updated
     for proj in projectiles:
-        proj.removeCheck()
+        proj.removeCheck(projectiles)
     spawnEnemies()  # spawns/despawns enemies into the world
     spawnStars()  # spawns/despawns stars around the player as they move
     if (
@@ -1912,11 +1898,11 @@ def drawGameplay():
     for power in items:
         power.draw()  # draws all the items
     for proj in projectiles:
-        proj.draw()  # draws all the projectiles
+        proj.draw(poly, maincam, p1)  # draws all the projectiles
     for en in enemies:
-        en.draw()  # draws all the enemies
-    p1.draw()  # renders the player
-    maincam.render(screen)  # renders the world objects throught the camera's point of view
+        en.draw(maincam)  # draws all the enemies
+    p1.draw(maincam)  # renders the player
+    maincam.render(size, screen)  # renders the world objects throught the camera's point of view
     drawScore()
 
     ##
@@ -2090,7 +2076,7 @@ def handleCollisions():
                     p1.powerEvent(0, op)
                     op.hit(p1)
             else:
-                p1.damage(1)
+                p1.damage(1, sounds)
                 p1.powerEvent(0, op)
                 op.hit(p1)
         itr += 1
@@ -2125,7 +2111,7 @@ def opCheckColList(op, clist, itr, optype):
             else:
                 continue
         if (collision(op, clist[i])):
-            op.hit(clist[i])
+            op.hit(clist[i], sounds, particles, enemies, items)
             if (type(clist[i]) is enemyBullet):
                 clist[i].hit(op)
 
@@ -2243,7 +2229,7 @@ def drawStars():
         pol.verts.append((0, 1))
         pol.pos = star
         pol.thickness = 2
-        verts = maincam.renderPoly(pol)
+        verts = maincam.renderPoly(pol, size, screen)
         itr += 1
 
 

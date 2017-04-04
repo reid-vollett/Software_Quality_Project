@@ -1,8 +1,8 @@
 from ezmath import *
 
-import weapon
-import particle
-import poly
+from Weapon import weapon
+from Particle import particle
+from Poly import poly
 
 class player:
     def __init__(this):
@@ -17,7 +17,7 @@ class player:
         this.health = 1
         this.powerups = []
 
-    def update(this):
+    def update(this, activecontr, particles, sounds, projectiles):
         '''updates the player instance'''
         if (this.health == None):
             return
@@ -25,7 +25,7 @@ class player:
             this.kill()
         this.pos = addPoints(this.pos, this.vel)
         this.angle += this.rotvel
-        this.control()
+        this.control(activecontr, particles, sounds, projectiles)
         this.wepCheck()
         this.applySpeedLimit()
         this.curWep().update()
@@ -68,7 +68,7 @@ class player:
         for i in range(20):
             # shoots out green particles on death
             off = randPoint(10)
-            part = particle.particle(addPoints(this.pos, off), off, (0, 255, 0))
+            part = particle(addPoints(this.pos, off), off, (0, 255, 0))
             part.thickness = 4
             part.life = random.randrange(40, 100)
             if (randChance(50)):
@@ -83,30 +83,30 @@ class player:
         if (distance(this.vel) > 5):
             this.vel = multPoint(this.vel, 0.97)
 
-    def control(this, activecontr):
+    def control(this, activecontr, particles, sounds, projectiles):
         '''handles the player controls'''
         acceleration = 0.15  # speed of movement
         rotspd = 0.005  # speed of aiming
         if (activecontr[0]):  # up
             this.vel = addPoints(this.vel, multPoint(xyComponent(this.angle), acceleration))
-            this.thrustParticle(math.pi)
+            this.thrustParticle(math.pi,particles)
         if (activecontr[1]):  # down
             this.vel = addPoints(this.vel, multPoint(xyComponent(this.angle), -1 * acceleration))
             thrang = 1
             if (randChance(50)):
                 thrang *= -1
-            this.thrustParticle(thrang)
+            this.thrustParticle(thrang, particles)
         if (activecontr[2]):  # right
             this.rotvel += rotspd
         if (activecontr[3]):  # left
             this.rotvel -= rotspd
         if (activecontr[4]):  # fire
-            this.fire()
+            this.fire(sounds, projectiles)
 
     def thrustParticle(this, reldir, particles):
         '''emits particles to show acceleration'''
         force = multPoint(xyComponent(this.angle + reldir), 0.7)
-        part = particle.particle(addPoints(this.pos, randPoint(5)), multPoint(force, 5), (255, 150, 0))
+        part = particle(addPoints(this.pos, randPoint(5)), multPoint(force, 5), (255, 150, 0))
         part.vel = addPoints(part.vel, this.vel)
         part.life = random.randrange(5, 10)
         if (randChance(50)):
@@ -120,10 +120,10 @@ class player:
             return this.primaryWep
         return this.powerWep
 
-    def fire(this):
+    def fire(this, sounds, projectiles):
         '''triggers the currently equipped weapon'''
         wepfire = this.curWep()
-        if (wepfire.trigger(this.pos, this.angle, this.vel)):
+        if (wepfire.trigger(this.pos, this.angle, this.vel, sounds, projectiles)):
             this.powerEvent(1, wepfire)
 
     def draw(this, maincam):

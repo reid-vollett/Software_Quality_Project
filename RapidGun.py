@@ -1,8 +1,8 @@
 from ezmath import *
 
-import weapon
-import poly
-import projectile
+from Weapon import weapon
+from Poly import poly
+from Projectile import projectile
 
 class rapidGun(weapon):
     def __init__(this):

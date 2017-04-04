@@ -1,7 +1,7 @@
 from ezmath import *
 
-import item
-import poly
+from Item import item
+from Poly import poly
 
 class quadShooter(item):
     def __init__(this, pos):

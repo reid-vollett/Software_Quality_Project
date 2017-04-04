@@ -1,6 +1,6 @@
 from ezmath import *
 
-def getPoints(pts):
+def getPoints(pts, ):
     global score
     global scoredrop
     global scoredropper

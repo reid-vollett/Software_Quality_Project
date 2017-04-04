@@ -7,9 +7,11 @@ import time
 import pygame
 from ezmath import *
 
-import particle
+from Particle import particle
 from Enemy import enemy
+
 from Asteroid import asteroid
+
 
 
 
@@ -68,7 +70,7 @@ class projectile:
             if (collision(ast, this)):
                 this.hit(ast)
 
-    def hit(this, en):
+    def hit(this, en, sounds, particles, enemies, items):
         if (not this.friendly):
             if (baseIs(en, projectile)):
                 if (this.friendly == en.friendly):
@@ -77,18 +79,18 @@ class projectile:
             else:
                 return
         this.life = 0
-        this.burst()
+        this.burst(sounds, particles)
         if (baseIs(en, enemy)):
-            this.enHit(en)
+            this.enHit(en, sounds, enemies, particles, items)
 
-    def enHit(this, en):
+    def enHit(this, en, sounds, enemies, particles, items):
         '''hits a specified enemy'''
         # damages the enemy instance it collides with
         if (en.dead()):
             return
         en.health -= this.damage
         if (en.health <= 0):
-            en.kill()
+            en.kill(sounds, enemies, particles, items)
 
     def burst(this, sounds, particles):
         '''the visual effect of the projectile's collision'''
@@ -98,7 +100,7 @@ class projectile:
             sounds[14].play()
         for i in range(random.randrange(4, 8)):
             # add some pretty particles
-            part = particle.particle(this.pos, randPoint(5), (255, 255, 0))
+            part = particle(this.pos, randPoint(5), (255, 255, 0))
             part.damping = 0.9
             particles.append(part)
 

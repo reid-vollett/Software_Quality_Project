@@ -1,11 +1,11 @@
 from ezmath import *
 
-import particle
-import circ
+from Particle import particle
+from Circ import circ
 
 class motherCowDeath(particle):
     def __init__(this, pos, vel):
-        particle.particle.__init__(this, pos, vel, (255, 255, 0), 2)
+        particle.__init__(this, pos, vel, (255, 255, 0), 2)
         this.life = 25
 
     def update(this, particles):

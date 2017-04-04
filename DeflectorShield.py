@@ -1,8 +1,8 @@
 from ezmath import  *
 
-import poly
+from Poly import poly
 from Circ import circ
-import item
+from Item import item
 
 class deflectorShield(item):
     def __init__(this, pos):

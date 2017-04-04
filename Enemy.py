@@ -7,22 +7,23 @@ import time
 import pygame
 from ezmath import *
 
-import particle
-from projectile import projectile
-from item import item
+
+#from Projectile import projectile
+from Item import item
 
 class enemy:
     def __init__(this, pos):
         '''initializes an enemy object'''
+        this.projectile = importProjectile()
         this.cck = False
         this.pos = pos
         this.vel = (0, 0)
         this.health = 1
         this.radius = 10
 
-    def kill(this):
+    def kill(this,items):
         '''kills the enemy instance'''
-        this.itemDrop()  # handles dropping powerups
+        this.itemDrop(items)  # handles dropping powerups
         this.health = None  # removes the enemy from the world
 
     def itemDrop(this, items):
@@ -33,7 +34,8 @@ class enemy:
             # 95% of the time nothing is dropped
             return
         # ~1 in every 20 kills an item is dropped
-        power = item.randItem(this.pos)
+        pos = this.pos
+        power = item.randItem(pos)
         items.append(power)
 
     def update(this):
@@ -47,12 +49,16 @@ class enemy:
         '''default rendering for an enemy base type is to not render anything'''
         0
 
-    def hit(this, ob):
-        if (baseIs(ob, projectile)):
-            this.projHit(ob)
+    def hit(this, ob, sounds, particles, enemies, items):
+        if (baseIs(ob, this.projectile)):
+            this.projHit(ob, sounds, particles, enemies, items)
 
-    def projHit(this, proj):
-        proj.hit(this)
+    def projHit(this, proj, sounds, particles, enemies, items):
+        proj.hit(this, sounds, particles, enemies, items)
 
     def dead(this):
         return this.health == None
+
+def importProjectile():
+    import Projectile
+    return Projectile.projectile

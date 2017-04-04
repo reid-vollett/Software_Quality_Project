@@ -1,11 +1,11 @@
 
 from gameFunctions import *
 
-import enemy
-import poly
-import motherCowDeath
+from Enemy import enemy
+from Poly import poly
+from MotherCowDeath import motherCowDeath
 from Alien import alien
-import enemyBullet
+from EnemyBullet import enemyBullet
 
 class motherCow(enemy):
     def __init__(this, pos):

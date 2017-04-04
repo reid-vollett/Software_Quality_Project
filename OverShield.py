@@ -1,12 +1,13 @@
 from ezmath import *
 
-import item
-import poly
-import particle
+from  Item import item
+from Poly import poly
+from Particle import particle
 
 class overShield(item):
     def __init__(this, pos):
         '''initializes an overshield item'''
+
         item.__init__(this, pos, -1)
         this.powersprite = 4
 
@@ -38,10 +39,10 @@ class overShield(item):
 
     def burst(this, particles, p1):
         for i in range(15):
-            part = particle.particle(this.pos, p1.vel, (0, 200, 255), 3)
+            part = particle(this.pos, p1.vel, (0, 200, 255), 3)
             off = randCirc(10)
             part.vel = addPoints(part.vel, off)
             part.damping = 0.95
-            particle.particle.life = 100
+            particle.life = 100
             part.pos = addPoints(p1.pos, off * 3)
             particles.append(part)

@@ -1,8 +1,8 @@
 from ezmath import *
 
-import weapon
-import poly
-import missile
+from Weapon import weapon
+from Poly import poly
+from Missile import missile
 
 class missileLauncher(weapon):
     def __init__(this):

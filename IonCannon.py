@@ -1,8 +1,8 @@
 from ezmath import *
 
-import weapon
-import poly
-import ionBullet
+from Weapon import weapon
+from Poly import poly
+from IonBullet import ionBullet
 
 class ionCannon(weapon):
     def __init__(this):

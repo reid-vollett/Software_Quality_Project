@@ -1,11 +1,11 @@
 
 from gameFunctions import *
 
-import projectile
-import poly
-import particle
-import enemy
-import circ
+from Projectile import projectile
+from Poly import poly
+from Particle import particle
+from Enemy import enemy
+from Circ import circ
 
 class missile(projectile):
     def __init__(this, pos, aim, speed):
@@ -47,7 +47,7 @@ class missile(projectile):
     def thrustParticle(this, particles):
         '''emits particles to show that it is seeking an enemy'''
         force = multPoint(xyComponent(this.form.angle - math.pi), 0.7)
-        part = particle.particle(addPoints(this.pos, randPoint(randRange(4, 6))), multPoint(force, 5), (255, 255, 0))
+        part = particle(addPoints(this.pos, randPoint(randRange(4, 6))), multPoint(force, 5), (255, 255, 0))
         part.vel = addPoints(part.vel, this.vel)
         part.life = random.randrange(5, 10)
         part.damping = 0.8
@@ -73,7 +73,7 @@ class missile(projectile):
         '''creates a small flash and emits some explosion particles'''
         sounds[13].play()
         for i in range(random.randrange(5, 10)):
-            part = particle.particle(this.pos, randCirc(5), (255, 255, 0))
+            part = particle(this.pos, randCirc(5), (255, 255, 0))
             particles.append(part)
         blast = circ()
         blast.pos = this.pos

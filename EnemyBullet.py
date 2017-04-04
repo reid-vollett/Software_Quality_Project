@@ -1,9 +1,9 @@
 from ezmath import *
 
-import projectile
-import poly
-import player
-import asteroid
+from Projectile import projectile
+from Poly import poly
+from Player import player
+from Asteroid import asteroid
 
 class enemyBullet(projectile):
     def __init__(this, pos, aim, speed):

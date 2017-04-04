@@ -7,21 +7,29 @@ import pygame
 from ezmath import *
 
 
-import poly
-import img
-import overShield
-import deflectorShield
-import quadShooter
-import spreadGun
-import ionCannon
-import rapidGun
-import missileLauncher
+from Poly import poly
+from Img import img
+#from OverShield import overShield
+#from DeflectorShield import deflectorShield
+#from QuadShooter import quadShooter
+#from SpreadGun import spreadGun
+#from IonCannon import ionCannon
+#from RapidGun import rapidGun
+#from MissileLauncher import missileLauncher
 
 
 
 class item:
     def __init__(this, pos, power):
         '''initializes an item object'''
+        this.overShield = importOverShield()
+        this.deflectorShield = importDeflectorShield()
+        this.quadShooter = importQuadShooter()
+        this.spreadGun = importSpreadGun()
+        this.ionCannon = importIonCannon()
+        this.rapidGun = importRapidGun()
+        this.missileLauncher = importMissileLauncher()
+
         this.pos = pos
         this.form = poly((10, 0), (7, 7), (0, 10), (-7, 7), (-10, 0), (-7, -7), (0, -10), (7, -7))
         this.form.color = (0, 0, 255)
@@ -31,18 +39,18 @@ class item:
         this.radius = 20
         this.powersprite = power
 
-    def randItem(pos):
+    def randItem(this, pos):
         '''static: returns a random item'''
         rand = random.randrange(-3, 4)
         if (rand >= 0):
             return item(pos, rand)
         else:
             if (rand == -1):
-                return overShield(pos)
+                return this.overShield(pos)
             if (rand == -2):
-                return deflectorShield(pos)
+                return this.deflectorShield(pos)
             if (rand == -3):
-                return quadShooter(pos)
+                return this.quadShooter(pos)
 
     def grab(this, items, sounds, p1):
         '''gives the item to the specified player'''
@@ -52,13 +60,13 @@ class item:
         if (this.pow == -1):
             this.tryAddPower()
         if (this.pow == 0):
-            p1.powerWep = spreadGun()
+            p1.powerWep = this.spreadGun()
         if (this.pow == 1):
-            p1.powerWep = ionCannon()
+            p1.powerWep = this.ionCannon()
         if (this.pow == 2):
-            p1.powerWep = rapidGun()
+            p1.powerWep = this.rapidGun()
         if (this.pow == 3):
-            p1.powerWep = missileLauncher()
+            p1.powerWep = this.missileLauncher()
 
     def tryAddPower(this, p1):
         for pow in p1.powerups:
@@ -107,3 +115,31 @@ class item:
 
     def replenish(this):
         0
+
+def importOverShield():
+    import OverShield
+    return OverShield.overShield
+
+def importDeflectorShield():
+    import DeflectorShield
+    return DeflectorShield.deflectorShield
+
+def importQuadShooter():
+    import QuadShooter
+    return QuadShooter.quadShooter
+
+def importSpreadGun():
+    import SpreadGun
+    return SpreadGun.spreadGun
+
+def importIonCannon():
+    import IonCannon
+    return IonCannon.ionCannon
+
+def importRapidGun():
+    import RapidGun
+    return RapidGun.rapidGun
+
+def importMissileLauncher():
+    import MissileLauncher
+    return MissileLauncher.missileLauncher

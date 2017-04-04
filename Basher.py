@@ -1,10 +1,10 @@
 from ezmath import *
 from gameFunctions import *
 
-import enemy
-import poly
-import particle
-import projectile
+from Enemy import enemy
+from Poly import poly
+from Particle import particle
+from Projectile import projectile
 
 class basher(enemy):
     def __init__(this, pos):
@@ -29,7 +29,7 @@ class basher(enemy):
                 col = (255, 150, 0)
             else:
                 col = (255, 255, 0)
-            part = particle.particle(this.pos, vel, col, 4)
+            part = particle(this.pos, vel, col, 4)
             part.life = randRange(30, 10)
             particles.append(part)
 

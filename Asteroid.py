@@ -2,8 +2,8 @@ from ezmath import *
 from gameFunctions import *
 
 from Enemy import enemy
-import poly
-import particle
+from Poly import poly
+from Particle import particle
 
 class asteroid(enemy):
     def __init__(this, pos, radius):
@@ -13,9 +13,9 @@ class asteroid(enemy):
         this.health = this.radius / 10 + 1
         this.form = poly.circleGon(7, radius)
 
-    def kill(this, sounds, enemies, particles,):
+    def kill(this, sounds, enemies, particles, items):
         '''destroys the asteroid object'''
-        enemy.kill(this)
+        enemy.kill(this, items)
         global score
         if (this.radius > 10):
             sounds[8].play()
@@ -29,7 +29,7 @@ class asteroid(enemy):
             sounds[9].play()
         for i in range(3 + int(this.radius / 5)):
             # emits particles of death
-            part = particle.particle(addPoints(this.pos, randPoint(this.radius)), 0, (200, 120, 90), 4)
+            part = particle(addPoints(this.pos, randPoint(this.radius)), 0, (200, 120, 90), 4)
             if (randChance(50)):
                 part.color = (130, 100, 50)
             part.vel = multPoint(subtractPoints(part.pos, this.pos), 0.3)
@@ -37,10 +37,10 @@ class asteroid(enemy):
             particles.append(part)
         getPoints(math.ceil(this.radius / 20) * 10)  # worth more points the bigger the asteroid
 
-    def itemDrop(this):
+    def itemDrop(this, items):
         '''only has a chance to drop an item if is large enough'''
         if (this.radius > 10):
-            enemy.itemDrop(this)
+            enemy.itemDrop(this, items)
 
     def draw(this, maincam):
         '''renders the current asteroid instance'''

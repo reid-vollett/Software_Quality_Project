@@ -1,10 +1,10 @@
 import pygame
 from ezmath import *
 
-import poly
+from Poly import poly
 from Circ import circ
-import img
-import shape
+from Img import img
+from Shape import shape
 
 class camera:
     def __init__(this):
@@ -31,11 +31,11 @@ class camera:
         av = addPoints(av, multPoint(size, .5))
         return av
 
-    def render(this, screen):
+    def render(this, size, screen):
         '''transforms the shapes in it's drawQuery to it's orientation and then renders them to the screen'''
         for dshape in this.drawQuery:
             if (type(dshape) is poly):
-                this.renderPoly(dshape)
+                this.renderPoly(dshape, size, screen)
             if (type(dshape) is circ):
                 this.renderCirc(dshape)
             if (type(dshape) is img):

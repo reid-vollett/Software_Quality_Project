@@ -8,9 +8,9 @@ from ezmath import *
 from gameFunctions import *
 
 from Enemy import enemy
-import poly
-import particle
-import enemyBullet
+from Poly import poly
+from Particle import particle
+from EnemyBullet import enemyBullet
 
 class alien(enemy):
     def __init__(this, pos, p1):
@@ -42,7 +42,7 @@ class alien(enemy):
         for i in range(10):
             # releases some particles to make frags more satisfying
             off = randPoint(5)
-            part = particle.particle(addPoints(this.pos, off), addPoints(this.vel, off), (255, 0, 0), 3)
+            part = particle(addPoints(this.pos, off), addPoints(this.vel, off), (255, 0, 0), 3)
             part.life = randRange(10, 25)
             if (randChance(50)):
                 part.color = (150, 0, 0)

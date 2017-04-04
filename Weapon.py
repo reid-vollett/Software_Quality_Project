@@ -1,6 +1,6 @@
 from ezmath import *
 
-import projectile
+from Projectile import projectile
 
 class weapon:
     def __init__(this):
@@ -16,12 +16,12 @@ class weapon:
     def draw(this):
         0
 
-    def trigger(this, pos, aim, vel, sounds ):
+    def trigger(this, pos, aim, vel, sounds, projectiles):
         if (this.ammo <= 0):
             return False
         if (this.firewait <= 0):
             sounds[2].play()
-            this.fire(pos, aim, vel)
+            this.fire(pos, aim, vel, projectiles)
             this.firewait = this.fireDelay
             return True
         return False

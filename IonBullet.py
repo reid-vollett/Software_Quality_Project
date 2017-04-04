@@ -1,8 +1,8 @@
 from ezmath import*
 
-import projectile
-import particle
-import circ
+from Projectile import projectile
+from Particle import particle
+from Circ import circ
 
 class ionBullet(projectile):
     def __init__(this, pos, aim, speed):
@@ -12,7 +12,7 @@ class ionBullet(projectile):
     def burst(this, particles, maincam):
         '''the bullet produces a small green flash when it collides'''
         for i in range(2):
-            part = particle.particle(this.pos, randPoint(30), (0, 255, 50))
+            part = particle(this.pos, randPoint(30), (0, 255, 50))
             part.damping = 0.8
             part.thickness = 4
             particles.append(part)

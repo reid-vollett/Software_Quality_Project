@@ -1,4 +1,4 @@
-import shape
+from Shape import shape
 
 class circ(shape):
     def __init__(this, size=10):
