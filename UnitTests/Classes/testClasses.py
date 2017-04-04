@@ -2,129 +2,242 @@ import unittest
 
 class Alien(unittest.TestCase):
     def setUp(self):
-        print("Setup\n")
-        #self.X = X
+        print("Class Setup\n")
 
     def tearDown(self):
-        print("Takedown\n")
-        #self.X.dispose()
+        print("Class Takedown\n")
 
     def testCase(self):
         print("I am a test case, big and stronk2")
 
 class Asteroird(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Basher(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Camera(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Circ(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class DeflectorShield(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Enemy(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class EnemyBullet(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 # Should be a good place to put alot of unit tests
 class ezmath(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class gameFunctions(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class GlobalVariables(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 # cant really do anything here
 class Img(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class IonBullet(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class IonCannon(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Item(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Missile(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class MissileLauncher(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class MotherCow(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class MotherCowDeath(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class OverShield(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Particle(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
 
+    def tearDown(self):
+        print("Class Takedown\n")
 
 class Player(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Poly(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Projectile(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class QuadShooter(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class RapidGun(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Shaper(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class SpaceGame(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class SpreadGun(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
 
 
 class Weapon(unittest.TestCase):
-    pass
+    def setUp(self):
+        print("Class Setup\n")
+
+    def tearDown(self):
+        print("Class Takedown\n")
