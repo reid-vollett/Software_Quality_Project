@@ -1534,7 +1534,8 @@ def scoreDrops():
     ppos = multPoint(xyComponent(GlobalVariables.p1.angle), 100)
     ppos = addPoints(ppos, GlobalVariables.p1.pos)
     if (GlobalVariables.scoredropper <= 0):
-        scoredropper = None
+        GlobalVariables.scoredropper = None
+        print(ppos)
         bonus = item.randItem(ppos)
         GlobalVariables.items.append(bonus)
     else:
