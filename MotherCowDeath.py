@@ -10,7 +10,7 @@ class motherCowDeath(particle):
         this.life = 25
 
     def update(this):
-        if (this.life <= 0 or distance(p1.pos, this.pos) > 500):
+        if (this.life <= 0 or distance(GlobalVariables.p1.pos, this.pos) > 500):
             GlobalVariables.particles.remove(this)
             return
         if (this.life % 3 == 0):
@@ -31,5 +31,5 @@ class motherCowDeath(particle):
             part.life = randRange(30, 10)
             GlobalVariables.particles.append(part)
 
-    def draw(this):
+    def draw(this, poly):
         0

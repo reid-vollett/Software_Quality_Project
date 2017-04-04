@@ -1892,6 +1892,7 @@ def drawGameplay():
     '''draws the gameplay'''
     drawStars()
     for part in GlobalVariables.particles:
+        print(part)
         part.draw(poly)  # draws all the particles
     for power in GlobalVariables.items:
         power.draw()  # draws all the items
@@ -1929,7 +1930,7 @@ def drawNameEntry():
     title2 = font.render("SCOREBOARD!", False, sccol)
     title3 = font.render("ENTER YOUR NAME BELOW:", False, (255, 255, 255))
 
-    GlobalVariables.blit(title1, (10, 300))
+    GlobalVariables.screen.blit(title1, (10, 300))
     GlobalVariables.screen.blit(title2, (350, 300))
     GlobalVariables.screen.blit(title3, (85, 340))
     ntex = GlobalVariables.p1
@@ -2202,9 +2203,11 @@ def spawnEnemies():
                 bs = basher(addPoints(randCirc(randRange(600, 500)), GlobalVariables.p1.pos))
                 GlobalVariables.enemies.append(bs)
     GlobalVariables.enemyspawndelay -= 1
+    #testing 3500 -> 350
     if (GlobalVariables.iteration > 3500):
         GlobalVariables.cowspawndelay -= 1
         if (GlobalVariables.cowspawndelay <= 0):
+            #testing 1200 -> 200
             GlobalVariables.cowspawndelay = 1200
             cow = motherCow(addPoints(randCirc(500), GlobalVariables.p1.pos))
             GlobalVariables.enemies.append(cow)
