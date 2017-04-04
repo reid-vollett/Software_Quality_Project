@@ -1,4 +1,7 @@
 import unittest
+import sys
+import os
+import subprocess
 
 class Alien(unittest.TestCase):
     def setUp(self):

@@ -1,6 +1,9 @@
 import unittest
 import sys
+import os
 import subprocess
+
+sys.path.append(os.path.abspath('..'))
 
 from Classes import testClasses as testClass
 
