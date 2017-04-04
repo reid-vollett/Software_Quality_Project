@@ -7,16 +7,13 @@
 # Github: https://github.com/Technostalgic/Asteroids-Too
 
 
-import math
 import os
-import random
 import sys
 import time
-import pygame
-from ezmath import *
-from gameFunctions import *
-import GlobalVariables
 
+import pygame
+
+import GlobalVariables
 from Alien import alien
 from Asteroid import asteroid
 from Basher import basher
@@ -25,11 +22,10 @@ from Enemy import enemy
 from EnemyBullet import enemyBullet
 from Item import item
 from MotherCow import motherCow
-from Particle import particle
 from Player import player
 from Poly import poly
 from Projectile import projectile
-
+from gameFunctions import *
 
 # used for compiling with pyinstaller
 fpath = '.'
