@@ -4,7 +4,7 @@ from gameFunctions import *
 import enemy
 import poly
 import motherCowDeath
-import alien
+from Alien import alien
 import enemyBullet
 
 class motherCow(enemy):

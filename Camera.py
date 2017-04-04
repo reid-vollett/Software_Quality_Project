@@ -2,7 +2,7 @@ import pygame
 from ezmath import *
 
 import poly
-import circ
+from Circ import circ
 import img
 import shape
 

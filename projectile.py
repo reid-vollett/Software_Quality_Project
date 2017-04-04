@@ -8,8 +8,8 @@ import pygame
 from ezmath import *
 
 import particle
-import enemy
-import asteroid
+from Enemy import enemy
+from Asteroid import asteroid
 
 
 

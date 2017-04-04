@@ -1,7 +1,7 @@
 from ezmath import *
 from gameFunctions import *
 
-import enemy
+from Enemy import enemy
 import poly
 import particle
 

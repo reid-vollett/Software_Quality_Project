@@ -1,7 +1,7 @@
 from ezmath import  *
 
 import poly
-import circ
+from Circ import circ
 import item
 
 class deflectorShield(item):

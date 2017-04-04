@@ -6,7 +6,7 @@ import time
 import pygame
 from ezmath import *
 
-import shape as shape
+from shape import shape
 
 
 class poly(shape):

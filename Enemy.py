@@ -8,8 +8,8 @@ import pygame
 from ezmath import *
 
 import particle
-import projectile
-import item
+from projectile import projectile
+from item import item
 
 class enemy:
     def __init__(this, pos):

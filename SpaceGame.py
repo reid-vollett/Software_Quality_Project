@@ -16,33 +16,33 @@ import pygame
 from ezmath import *
 from gameFunctions import *
 
-import alien
-import asteroid
-import basher
-import camera
-import circ
-import deflectorShield
-import enemy
+from Alien import alien
+from Asteroid import asteroid
+from Basher import basher
+from Camera import camera
+#import circ
+#import deflectorShield
+from Enemy import enemy
 import enemyBullet
-import gameFunctions
-import img
-import ionBullet
-import ionCannon
+#import gameFunctions
+#import img
+#import ionBullet
+#import ionCannon
 import item
-import missile
-import missileLauncher
+#import missile
+#import missileLauncher
 import motherCow
-import motherCowDeath
-import overShield
+#import motherCowDeath
+#import overShield
 import particle
 import player
 import poly
 import projectile
-import quadShooter
-import rapidGun
-import shape
-import spreadGun
-import weapon
+#import quadShooter
+#import rapidGun
+#import shape
+#import spreadGun
+#import weapon
 
 # used for compiling with pyinstaller
 fpath = '.'
@@ -1405,7 +1405,7 @@ class quadShooter(item):
     def grab(this):
         item.grab(this)
         this.life = 500
-"""
+#"""
 
 def handleInput():
     '''handles receiving input from the keyboard'''
