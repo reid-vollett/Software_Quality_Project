@@ -21,7 +21,7 @@ Source Code Cloned: March 29th, 2017
 2. \> pip install pygame
 3. \> python spacegame.py
 ### Unit Test Suite Execution
-1. Install lastest version of anaconda (https://www.continuum.io/downloads)
+1. Install latest version of Anaconda (https://www.continuum.io/downloads)
 2. \> python TestMain.py --unittest
 
 ## Instructions
