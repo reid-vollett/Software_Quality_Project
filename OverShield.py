@@ -1,8 +1,8 @@
+import GlobalVariables
 from  Item import item
 from Particle import particle
 from Poly import poly
 from ezmath import *
-from src import GlobalVariables
 
 
 # overshield creates a protective barrier around the player

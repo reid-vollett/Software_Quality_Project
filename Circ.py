@@ -1,5 +1,5 @@
+import GlobalVariables
 from Shape import shape
-from src import GlobalVariables
 
 
 class circ(shape):

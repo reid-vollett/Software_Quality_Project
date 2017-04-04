@@ -1,8 +1,8 @@
+import GlobalVariables
 from Poly import poly
 from Projectile import projectile
 from Weapon import weapon
 from ezmath import *
-from src import GlobalVariables
 
 
 # a gun that shoots 5 fast moving projectiles that spread out and hit multiple targets

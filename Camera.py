@@ -1,11 +1,11 @@
 import pygame
 
+import GlobalVariables
 from Circ import circ
 from Img import img
 from Poly import poly
 from Shape import shape
 from ezmath import *
-from src import GlobalVariables
 
 
 # cameras are used to render world objects from a dynamic point of view

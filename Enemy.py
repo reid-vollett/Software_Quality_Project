@@ -1,7 +1,7 @@
 #enemy class
+import GlobalVariables
 from Item import item
 from ezmath import *
-from src import GlobalVariables
 
 
 # the enemy base class for all enemy type objects

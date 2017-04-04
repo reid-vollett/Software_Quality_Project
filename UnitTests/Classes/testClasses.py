@@ -2,7 +2,9 @@ import unittest
 import sys
 import os
 import subprocess
-
+import Alien, Asteroid, Basher, Camera, Circ, DeflectorShield, Enemy, EnemyBullet, ezmath, gameFunctions, \
+    GlobalVariables, IonBullet, IonCannon, Item, Missile, MissileLauncher, MotherCow, MotherCowDeath, OverShield, \
+    Particle, Player, Poly, Projectile, QuadShooter, RapidGun, Shape, SpreadGun, Weapon
 class AlienTest(unittest.TestCase):
     def setUp(self):
         pass

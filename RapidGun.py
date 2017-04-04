@@ -1,8 +1,8 @@
+import GlobalVariables
 from Poly import poly
 from Projectile import projectile
 from Weapon import weapon
 from ezmath import *
-from src import GlobalVariables
 
 
 # a rapid-fire gatling gun

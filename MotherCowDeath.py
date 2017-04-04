@@ -1,7 +1,7 @@
+import GlobalVariables
 from Circ import circ
 from Particle import particle
 from ezmath import *
-from src import GlobalVariables
 
 
 class motherCowDeath(particle):

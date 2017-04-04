@@ -1,10 +1,10 @@
 #Projectile class
+import GlobalVariables
 from Asteroid import asteroid
 from Enemy import enemy
 from Particle import particle
 from Poly import poly
 from ezmath import *
-from src import GlobalVariables
 
 
 class projectile:

@@ -1,7 +1,7 @@
+import GlobalVariables
 from Item import item
 from Poly import poly
 from ezmath import *
-from src import GlobalVariables
 
 
 # quadShooter fires your weapon in four different directions

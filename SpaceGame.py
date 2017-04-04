@@ -1892,7 +1892,6 @@ def drawGameplay():
     '''draws the gameplay'''
     drawStars()
     for part in GlobalVariables.particles:
-        print(part)
         part.draw(poly)  # draws all the particles
     for power in GlobalVariables.items:
         power.draw()  # draws all the items

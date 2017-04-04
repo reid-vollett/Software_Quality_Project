@@ -1,7 +1,7 @@
+import GlobalVariables
 from Img import img
 from Poly import poly
 from ezmath import *
-from src import GlobalVariables
 
 
 # items are powerups that are dropped from enemies and the player can pick up
