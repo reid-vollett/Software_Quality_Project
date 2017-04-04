@@ -16,7 +16,6 @@ from Item import item
 class enemy:
     def __init__(this, pos):
         ''''initializes an enemy object'''
-
         this.projectile = importProjectile()
         this.cck = False
         this.pos = pos
@@ -33,12 +32,11 @@ class enemy:
         '''has a chance to drop an item'''
         if (len(GlobalVariables.items) > 1):
             return
-        if (not randChance(25)):
+        if (not randChance(90)):
             # 95% of the time nothing is dropped
             return
         # ~1 in every 20 kills an item is dropped
-        epos = this.pos
-        power = item.randItem(epos)
+        power = item.randItem(this.pos)
         GlobalVariables.items.append(power)
 
     def update(this):
