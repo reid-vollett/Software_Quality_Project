@@ -15,6 +15,7 @@ import time
 import pygame
 from ezmath import *
 from gameFunctions import *
+import GlobalVariables
 
 from Alien import alien
 from Asteroid import asteroid
@@ -36,6 +37,7 @@ if getattr(sys, 'frozen', False):
     fpath = os.path.abspath(os.curdir)
     os.chdir(sys._MEIPASS)
 
+"""
 # display
 size = (600, 600)
 screen = None
@@ -95,7 +97,7 @@ controls = [ \
     pygame.K_c, \
     pygame.K_SPACE \
     ]
-
+"""
 
 
 """
@@ -1403,20 +1405,20 @@ def handleInput():
     # stops the function if the game does not have focus
     if (not pygame.key.get_focused()):
         return
-    global activecontr
-    global lastactivec
+    #global activecontr
+    #global lastactivec
 
     itr = 0
-    for pressed in activecontr:
-        lastactivec[itr] = pressed
+    for pressed in GlobalVariables.activecontr:
+        GlobalVariables.lastactivec[itr] = pressed
         itr += 1
     keyspressed = pygame.key.get_pressed()
-    activecontr[0] = keyspressed[controls[0]]
-    activecontr[1] = keyspressed[controls[1]]
-    activecontr[2] = keyspressed[controls[2]]
-    activecontr[3] = keyspressed[controls[3]]
-    activecontr[4] = keyspressed[controls[4]]
-    activecontr[5] = keyspressed[controls[5]] or keyspressed[pygame.K_RETURN]
+    GlobalVariables.activecontr[0] = keyspressed[GlobalVariables.controls[0]]
+    GlobalVariables.activecontr[1] = keyspressed[GlobalVariables.controls[1]]
+    GlobalVariables.activecontr[2] = keyspressed[GlobalVariables.controls[2]]
+    GlobalVariables.activecontr[3] = keyspressed[GlobalVariables.controls[3]]
+    GlobalVariables.activecontr[4] = keyspressed[GlobalVariables.controls[4]]
+    GlobalVariables.activecontr[5] = keyspressed[GlobalVariables.controls[5]] or keyspressed[pygame.K_RETURN]
 
     handleGlobalControls(keyspressed)
 
@@ -1462,7 +1464,7 @@ def init():
     pygame.display.set_icon(pygame.image.load(compilePath(os.path.join("Graphics", "icon.png"))))
     pygame.display.set_caption("SPACEGAME.EXE")
     pygame.mouse.set_visible(False)
-    screen = pygame.display.set_mode(size)
+    GlobalVariables.screen = pygame.display.set_mode(GlobalVariables.size)
     font = pygame.font.Font(compilePath("font.ttf"), 32)
     tinyfont = pygame.font.Font(compilePath("font.ttf"), 16)
     loadSprites()
@@ -1475,7 +1477,7 @@ def init():
 
 def startGame():
     '''starts a new round'''
-    global maincam
+    #global maincam
     global p1
     global mode
     global score
@@ -1501,7 +1503,7 @@ def startGame():
     enemyspawndelay = 0
     cowspawndelay = 0
     scoredropper = None
-    maincam = camera()
+    GlobalVariables.maincam = camera()
     p1 = player()
 
     # testpow = item((0, 40), 2)
@@ -1547,7 +1549,7 @@ def scoreDrops():
         pdraw.thickness = 3
         pdraw.color = col
         pdraw.pos = ppos
-        maincam.toDraw(pdraw)
+        GlobalVariables.maincam.toDraw(pdraw)
         scoredropper -= 1
 
 
@@ -1558,36 +1560,37 @@ def lose():
 
 def loadSprites():
     '''loads the item icon sprites'''
-    powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_spread.png"))))
-    powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_ioncannon.png"))))
-    powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_rapid.png"))))
-    powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_missiles.png"))))
-    powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_overshield.png"))))
-    powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_deflectorshield.png"))))
-    powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_quadshooter.png"))))
+
+    GlobalVariables.powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_spread.png"))))
+    GlobalVariables.powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_ioncannon.png"))))
+    GlobalVariables.powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_rapid.png"))))
+    GlobalVariables.powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_missiles.png"))))
+    GlobalVariables.powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_overshield.png"))))
+    GlobalVariables.powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_deflectorshield.png"))))
+    GlobalVariables.powersprites.append(pygame.image.load(compilePath(os.path.join("Graphics", "power_quadshooter.png"))))
 
 
 def loadSounds():
     '''loads the sound files'''
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "MenuNavigate.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "MenuSelect.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_Default.wav")))  # 2) weapon firing
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_RapidGun.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_IonCannon.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_SpreadGun.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_MissileLauncher.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "PowerUp.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Death_LargeAsteroid.wav")))  # 8) deaths
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Death_SmallAsteroid.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Death_Alien.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Death_MotherCow.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Hit_Default.wav")))  # 12) weapon hits
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Hit_MissileLauncher.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Hit_RapidGun.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Attack_Alien.wav")))  # 15) enemy attacks
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Attack_MotherCow.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "TakeDamage.wav")))
-    sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "ShieldDeflect.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "MenuNavigate.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "MenuSelect.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_Default.wav")))  # 2) weapon firing
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_RapidGun.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_IonCannon.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_SpreadGun.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Shoot_MissileLauncher.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "PowerUp.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Death_LargeAsteroid.wav")))  # 8) deaths
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Death_SmallAsteroid.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Death_Alien.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Death_MotherCow.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Hit_Default.wav")))  # 12) weapon hits
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Hit_MissileLauncher.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Hit_RapidGun.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Attack_Alien.wav")))  # 15) enemy attacks
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "Attack_MotherCow.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "TakeDamage.wav")))
+    GlobalVariables.sounds.append(pygame.mixer.Sound(os.path.join("Sounds", "ShieldDeflect.wav")))
 
 
 def handleGlobalControls(keys):
@@ -1599,16 +1602,16 @@ def handleGlobalControls(keys):
 def handleMenuControls():
     '''handles GUI navigation in the menu screens'''
     global selection
-    if (activecontr[5] and (not lastactivec[5])):
+    if (GlobalVariables.activecontr[5] and (not GlobalVariables.lastactivec[5])):
         select(selection)
-        sounds[1].play()
-        sounds[1].play()
-    if (activecontr[1] and (not lastactivec[1])):
+        GlobalVariables.sounds[1].play()
+        GlobalVariables.sounds[1].play()
+    if (GlobalVariables.activecontr[1] and (not GlobalVariables.lastactivec[1])):
         selection += 1
-        sounds[0].play()
-    if (activecontr[0] and (not lastactivec[0])):
+        GlobalVariables.sounds[0].play()
+    if (GlobalVariables.activecontr[0] and (not GlobalVariables.lastactivec[0])):
         selection -= 1
-        sounds[0].play()
+        GlobalVariables.sounds[0].play()
     if (selection < 0):
         selection = 0
 
@@ -1663,7 +1666,7 @@ def gotoMode(modenum):
 
     if (modenum == 0):
         loadTitlesprite()
-    if (mode == 0):
+    if (GlobalVariables.mode == 0):
         disposeTitlesprite()
 
     selection = 0
@@ -1684,23 +1687,23 @@ def disposeTitlesprite():
 
 def loop():
     '''defines the call order of the game loop'''
-    global lagcatch
+    #global GlobalVariables.lagcatch
     start = time.time()  # stores the time at the beginning if the step
     # lagcatch dissipates over time
-    if (lagcatch > 0):
-        lagcatch -= 0.01
-    elif (lagcatch < 0):
-        lagcatch = 0
+    if (GlobalVariables.lagcatch > 0):
+        GlobalVariables.lagcatch -= 0.01
+    elif (GlobalVariables.lagcatch < 0):
+        GlobalVariables.lagcatch = 0
     handleInput()
     update()
     draw()
     elapsed = time.time() - start  # compares the time at the beginning of the step to now
-    sltime = framerate - elapsed  # calculates how much time is left before the next step is called
+    sltime = GlobalVariables.framerate - elapsed  # calculates how much time is left before the next step is called
     if (sltime >= 0):  # if that time is above zero, it suspends the thread until the next step is to be called
         time.sleep(sltime)
     else:  # if that time is below zero, a lag has occured, this is where the lag is handled
         # print("lag" + str(sltime) + "s")
-        lagcatch -= sltime
+        GlobalVariables.lagcatch -= sltime
         handleLag()
 
 
@@ -1759,10 +1762,10 @@ def updateGameplay():
         en.update()  # updates all the enemies
     for power in items:
         power.update()  # updates all the items
-    p1.update(activecontr, particles, sounds, projectiles)  # updates the player
+    p1.update()  # updates the player
     handleCollisions()
     scoreDrops()
-    maincam.orient(p1.pos, p1.angle + math.pi / 2, size)  # orients the camera to follow the player
+    GlobalVariables.maincam.orient(p1.pos, p1.angle + math.pi / 2)  # orients the camera to follow the player
     # removes necessary projectiles. they are not removed as the projectile list is updating because it causes an iteration skip which results in some projectiles not getting updated
     for proj in projectiles:
         proj.removeCheck(projectiles)
@@ -1782,10 +1785,10 @@ def updateGameplayNoCol():
         en.update()  # updates all the enemies
     for power in items:
         power.update()  # updates all the items
-    p1.update(activecontr, particles, sounds, projectiles)  # updates the player
+    p1.update()  # updates the player
     # handleCollisions()
     scoreDrops()
-    maincam.orient(p1.pos, p1.angle + math.pi / 2, size)  # orients the camera to follow the player
+    GlobalVariables.maincam.orient(p1.pos, p1.angle + math.pi / 2)  # orients the camera to follow the player
     # removes necessary projectiles. they are not removed as the projectile list is updating because it causes an iteration skip which results in some projectiles not getting updated
     for proj in projectiles:
         proj.removeCheck(projectiles)
@@ -1840,10 +1843,10 @@ def updateScoreboard():
 
 def draw():
     '''rendering logic handled here'''
-    if (screen == None):
+    if (GlobalVariables.screen == None):
         print("Cannot draw to screen because screen is not initialized!")
         return
-    screen.fill((0, 0, 0))
+    GlobalVariables.screen.fill((0, 0, 0))
     drawMode()
     pygame.display.flip()
 
@@ -1883,26 +1886,26 @@ def drawMenu():
     selector = font.render(">", False, (255, 255, 255))
 
     # renders the background
-    screen.blit(titlesprite, (0, 0))
-    screen.blit(selector, addPoints(buttonpos, (-15, selection * 40)))
-    screen.blit(startButton, addPoints(buttonpos, (0, 0)))
-    screen.blit(scoresButton, addPoints(buttonpos, (0, 40)))
-    screen.blit(exitButton, addPoints(buttonpos, (0, 80)))
+    GlobalVariables.screen.blit(titlesprite, (0, 0))
+    GlobalVariables.screen.blit(selector, addPoints(buttonpos, (-15, selection * 40)))
+    GlobalVariables.screen.blit(startButton, addPoints(buttonpos, (0, 0)))
+    GlobalVariables.screen.blit(scoresButton, addPoints(buttonpos, (0, 40)))
+    GlobalVariables.screen.blit(exitButton, addPoints(buttonpos, (0, 80)))
 
 
 def drawGameplay():
     '''draws the gameplay'''
     drawStars()
     for part in particles:
-        part.draw(poly, maincam)  # draws all the particles
+        part.draw(poly)  # draws all the particles
     for power in items:
         power.draw()  # draws all the items
     for proj in projectiles:
-        proj.draw(poly, maincam, p1)  # draws all the projectiles
+        proj.draw(poly)  # draws all the projectiles
     for en in enemies:
-        en.draw(maincam)  # draws all the enemies
-    p1.draw(maincam)  # renders the player
-    maincam.render(size, screen)  # renders the world objects throught the camera's point of view
+        en.draw()  # draws all the enemies
+    p1.draw()  # renders the player
+    GlobalVariables.maincam.render()  # renders the world objects throught the camera's point of view
     drawScore()
 
     ##
@@ -1931,14 +1934,14 @@ def drawNameEntry():
     title2 = font.render("SCOREBOARD!", False, sccol)
     title3 = font.render("ENTER YOUR NAME BELOW:", False, (255, 255, 255))
 
-    screen.blit(title1, (10, 300))
-    screen.blit(title2, (350, 300))
-    screen.blit(title3, (85, 340))
+    GlobalVariables.blit(title1, (10, 300))
+    GlobalVariables.screen.blit(title2, (350, 300))
+    GlobalVariables.screen.blit(title3, (85, 340))
     ntex = p1
     if (len(p1) < 12):
         ntex += '_'
     nametext = font.render(ntex, False, ncol)
-    screen.blit(nametext, (180, 400))
+    GlobalVariables.screen.blit(nametext, (180, 400))
 
 
 def drawScoreboard():
@@ -1968,17 +1971,17 @@ def drawScoreboard():
     itr = 0
     for scor in scores:
         scoreentry = font.render(str(itr + 1) + '. ' + scor[0], False, (0, 255, 0))
-        screen.blit(scoreentry, (100, 150 + itr * 40))
+        GlobalVariables.screen.blit(scoreentry, (100, 150 + itr * 40))
         scoreentry = font.render(str(scor[1]), False, (0, 255, 0))
-        screen.blit(scoreentry, (450, 150 + itr * 40))
+        GlobalVariables.screen.blit(scoreentry, (450, 150 + itr * 40))
         itr += 1
 
-    screen.blit(title, (150, 50))
-    screen.blit(selector, addPoints(buttonpos, (-15, selection * 40)))
+    GlobalVariables.screen.blit(title, (150, 50))
+    GlobalVariables.screen.blit(selector, addPoints(buttonpos, (-15, selection * 40)))
     if (score > 0):
-        screen.blit(scoretext, (150, 380))
-    screen.blit(startButton, addPoints(buttonpos, (0, 0)))
-    screen.blit(menuButton, addPoints(buttonpos, (0, 40)))
+        GlobalVariables.screen.blit(scoretext, (150, 380))
+    GlobalVariables.screen.blit(startButton, addPoints(buttonpos, (0, 0)))
+    GlobalVariables.screen.blit(menuButton, addPoints(buttonpos, (0, 40)))
 
 
 def drawScore():
@@ -1986,8 +1989,8 @@ def drawScore():
     pygame.sysfont
     text = font.render("SCORE: " + str(int(score)), False, (255, 255, 255))
     hitext = tinyfont.render("HI: " + str(hi), False, (200, 200, 200))
-    screen.blit(text, (4, 4))
-    screen.blit(hitext, (4, 40))
+    GlobalVariables.screen.blit(text, (4, 4))
+    GlobalVariables.screen.blit(hitext, (4, 40))
 
 
 def loadScoreboard():
@@ -2028,16 +2031,16 @@ def handleLag():
 
 def catchup():
     '''updates the game without rendering to save time'''
-    global lagcatch
+    #global lagcatch
     itr = 0
-    while (lagcatch >= framerate):
-        lagcatch -= framerate
+    while (GlobalVariables.lagcatch >= GlobalVariables.framerate):
+        GlobalVariables.lagcatch -= GlobalVariables.framerate
         start = time.time()
         updateNoCol()
         elapsed = time.time() - start
-        lagcatch += elapsed
+        GlobalVariables.lagcatch += elapsed
         itr += 1
-    maincam.drawQuery = list()
+    GlobalVariables.maincam.drawQuery = list()
     # print("caught up " + str(itr) + " frames")
 
 """
@@ -2076,7 +2079,7 @@ def handleCollisions():
                     p1.powerEvent(0, op)
                     op.hit(p1)
             else:
-                p1.damage(1, sounds)
+                p1.damage(1)
                 p1.powerEvent(0, op)
                 op.hit(p1)
         itr += 1
@@ -2111,7 +2114,7 @@ def opCheckColList(op, clist, itr, optype):
             else:
                 continue
         if (collision(op, clist[i])):
-            op.hit(clist[i], sounds, particles, enemies, items)
+            op.hit(clist[i])
             if (type(clist[i]) is enemyBullet):
                 clist[i].hit(op)
 
@@ -2229,7 +2232,7 @@ def drawStars():
         pol.verts.append((0, 1))
         pol.pos = star
         pol.thickness = 2
-        verts = maincam.renderPoly(pol, size, screen)
+        verts = GlobalVariables.maincam.renderPoly(pol)
         itr += 1
 
 

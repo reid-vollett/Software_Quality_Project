@@ -1,16 +1,17 @@
 from ezmath import *
+import GlobalVariables
 
 def getPoints(pts, ):
-    global score
-    global scoredrop
-    global scoredropper
-    score += pts
-    if (score >= scoredrop):
-        scoredropper = 60
-        if (scoredrop <= 500):
-            scoredrop += 500
+    #global score
+    #global scoredrop
+    #global scoredropper
+    GlobalVariables.score += pts
+    if (GlobalVariables.score >= GlobalVariables.scoredrop):
+        GlobalVariables.scoredropper = 60
+        if (GlobalVariables.scoredrop <= 500):
+            GlobalVariables.scoredrop += 500
         else:
-            scoredrop += 1000
+            GlobalVariables.scoredrop += 1000
 
 def collidingColchecks(pos, radius, p1, colcheck0, colcheck1, colcheck2):
     r = []

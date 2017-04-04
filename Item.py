@@ -9,19 +9,14 @@ from ezmath import *
 
 from Poly import poly
 from Img import img
-#from OverShield import overShield
-#from DeflectorShield import deflectorShield
-#from QuadShooter import quadShooter
-#from SpreadGun import spreadGun
-#from IonCannon import ionCannon
-#from RapidGun import rapidGun
-#from MissileLauncher import missileLauncher
+import GlobalVariables
 
 
 
+# items are powerups that are dropped from enemies and the player can pick up
 class item:
     def __init__(this, pos, power):
-        '''initializes an item object'''
+        '''import functions to fix cyclical dependicies'''
         this.overShield = importOverShield()
         this.deflectorShield = importDeflectorShield()
         this.quadShooter = importQuadShooter()
@@ -30,6 +25,7 @@ class item:
         this.rapidGun = importRapidGun()
         this.missileLauncher = importMissileLauncher()
 
+        '''initializes an item object'''
         this.pos = pos
         this.form = poly((10, 0), (7, 7), (0, 10), (-7, 7), (-10, 0), (-7, -7), (0, -10), (7, -7))
         this.form.color = (0, 0, 255)
@@ -39,52 +35,52 @@ class item:
         this.radius = 20
         this.powersprite = power
 
-    def randItem(this, pos):
+    def randItem(this):
         '''static: returns a random item'''
         rand = random.randrange(-3, 4)
         if (rand >= 0):
-            return item(pos, rand)
+            return item(this.pos, rand)
         else:
             if (rand == -1):
-                return this.overShield(pos)
+                return this.overShield(this.pos)
             if (rand == -2):
-                return this.deflectorShield(pos)
+                return this.deflectorShield(this.pos)
             if (rand == -3):
-                return this.quadShooter(pos)
+                return this.quadShooter(this.pos)
 
-    def grab(this, items, sounds, p1):
+    def grab(this):
         '''gives the item to the specified player'''
-        if (this in items):
-            items.remove(this)
-            sounds[7].play()
+        if (this in GlobalVariables.items):
+            GlobalVariables.items.remove(this)
+            GlobalVariables.sounds[7].play()
         if (this.pow == -1):
             this.tryAddPower()
         if (this.pow == 0):
-            p1.powerWep = this.spreadGun()
+            GlobalVariables.p1.powerWep = this.spreadGun()
         if (this.pow == 1):
-            p1.powerWep = this.ionCannon()
+            GlobalVariables.p1.powerWep = this.ionCannon()
         if (this.pow == 2):
-            p1.powerWep = this.rapidGun()
+            GlobalVariables.p1.powerWep = this.rapidGun()
         if (this.pow == 3):
-            p1.powerWep = this.missileLauncher()
+            GlobalVariables.p1.powerWep = this.missileLauncher()
 
-    def tryAddPower(this, p1):
-        for pow in p1.powerups:
+    def tryAddPower(this):
+        for pow in GlobalVariables.p1.powerups:
             if (type(this) is type(pow)):
                 pow.replenish()
                 return
-        p1.powerups.append(this)
+        GlobalVariables.p1.powerups.append(this)
 
-    def update(this, items, p1):
+    def update(this):
         '''handles the logic step for the current instance'''
         if (this.life <= 0):
-            if (this in items):
-                items.remove(this)
-        if (collision(this, p1)):
+            if (this in GlobalVariables.items):
+                GlobalVariables.items.remove(this)
+        if (collision(this, GlobalVariables.p1)):
             this.grab()
         this.life -= 1
 
-    def draw(this, maincam, powersprites):
+    def draw(this):
         '''renders the item object'''
         col = (0, 0, 255)
         incol = (0, 0, 150)
@@ -98,11 +94,11 @@ class item:
         this.form.fill = incol
         this.form.color = col
         this.form.thickness = 4
-        maincam.toDraw(this.form)
+        GlobalVariables.maincam.toDraw(this.form)
         # the power's icon image
-        vecimg = img(powersprites[this.powersprite])
+        vecimg = img(GlobalVariables.powersprites[this.powersprite])
         vecimg.pos = this.pos
-        maincam.toDraw(vecimg)
+        GlobalVariables.maincam.toDraw(vecimg)
 
     def doPower(this, event, params=[]):
         0

@@ -1,5 +1,5 @@
 from ezmath import *
-
+import GlobalVariables
 from Projectile import projectile
 from Poly import poly
 from Player import player
@@ -22,7 +22,7 @@ class enemyBullet(projectile):
         # p1.damage(1)
         # p1.powerEvent(0, this)
 
-    def draw(this, maincam):
+    def draw(this):
         '''handles the rendering logic for the current instance'''
         this.form.pos = this.pos
         this.form.angle = direction(this.vel)
@@ -30,7 +30,7 @@ class enemyBullet(projectile):
             this.form.color = (255, 255, 0)
         else:
             this.form.color = (255, 0, 0)
-        maincam.toDraw(this.form)
+            GlobalVariables.maincam.toDraw(this.form)
 
     def hit(this, en):
         if (type(en) is player):

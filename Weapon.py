@@ -1,7 +1,9 @@
 from ezmath import *
 
+import GlobalVariables
 from Projectile import projectile
 
+# weapons store data relevant to what the player's fire control will do
 class weapon:
     def __init__(this):
         '''initializes a weapon object'''
@@ -16,17 +18,17 @@ class weapon:
     def draw(this):
         0
 
-    def trigger(this, pos, aim, vel, sounds, projectiles):
+    def trigger(this, pos, aim, vel):
         if (this.ammo <= 0):
             return False
         if (this.firewait <= 0):
-            sounds[2].play()
-            this.fire(pos, aim, vel, projectiles)
+            GlobalVariables.sounds[2].play()
+            this.fire(pos, aim, vel)
             this.firewait = this.fireDelay
             return True
         return False
 
-    def fire(this, pos, aim, vel, projectiles):
+    def fire(this, pos, aim, vel):
         proj = projectile(True, pos, aim)
         proj.vel = addPoints(proj.vel, vel)
-        projectiles.append(proj)
+        GlobalVariables.projectiles.append(proj)

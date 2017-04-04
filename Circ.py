@@ -1,4 +1,5 @@
 from Shape import shape
+import GlobalVariables
 
 class circ(shape):
     def __init__(this, size=10):
@@ -6,6 +7,6 @@ class circ(shape):
         shape.__init__(this)
         this.scale = size
 
-    def draw(this, cam, maincam):
+    def draw(this, cam):
         '''adds the circ object to the camera's draw query'''
-        maincam.toDraw(this)
+        GlobalVariables.maincam.toDraw(this)

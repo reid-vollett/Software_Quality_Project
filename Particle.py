@@ -6,6 +6,7 @@ import sys
 import time
 import pygame
 from ezmath import *
+import GlobalVariables
 
 class particle:
     def __init__(this, pos, vel, color=(255, 255, 0), thickness=2):
@@ -18,17 +19,17 @@ class particle:
         this.thickness = thickness
         this.damping = 1
 
-    def update(this, particles, p1):
+    def update(this):
         '''handles logic for a particle instance'''
-        if (this.life <= 0 or distance(p1.pos, this.pos) > 500):
-            particles.remove(this)
+        if (this.life <= 0 or distance(GlobalVariables.p1.pos, this.pos) > 500):
+            GlobalVariables.particles.remove(this)
             return
 
         this.vel = multPoint(this.vel, this.damping)
         this.pos = addPoints(this.pos, this.vel)
         this.life -= 1
 
-    def draw(this, poly, maincam):
+    def draw(this, poly):
         '''handles rendering for a particle instance'''
         # particles are rendered as a line whose length is dependent upon their speed
         length = (distance(this.vel))
@@ -41,4 +42,4 @@ class particle:
         tform.angle = direction(this.vel)
         tform.color = this.color
         tform.thickness = this.thickness
-        maincam.toDraw(tform)
+        GlobalVariables.maincam.toDraw(tform)

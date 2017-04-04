@@ -1,5 +1,4 @@
 
-
 class shape:
     def __init__(this):
         '''initializes a shape object, used by the camera to render to the screen'''

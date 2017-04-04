@@ -1,9 +1,12 @@
 from ezmath import *
 
+import GlobalVariables
 from Weapon import weapon
 from Particle import particle
 from Poly import poly
 
+
+# the player object, what the user is controlling
 class player:
     def __init__(this):
         '''initializes the player'''
@@ -17,7 +20,7 @@ class player:
         this.health = 1
         this.powerups = []
 
-    def update(this, activecontr, particles, sounds, projectiles):
+    def update(this):
         '''updates the player instance'''
         if (this.health == None):
             return
@@ -25,7 +28,7 @@ class player:
             this.kill()
         this.pos = addPoints(this.pos, this.vel)
         this.angle += this.rotvel
-        this.control(activecontr, particles, sounds, projectiles)
+        this.control()
         this.wepCheck()
         this.applySpeedLimit()
         this.curWep().update()
@@ -53,14 +56,14 @@ class player:
             else:
                 this.curWep = weapon()
 
-    def damage(this, dmg, sounds):
+    def damage(this, dmg):
         '''damages the player a specified amount'''
         if (this.health == None):
             return
-        sounds[17].play()
+            GlobalVariables.sounds[17].play()
         this.health -= dmg
 
-    def kill(this, particles):
+    def kill(this):
         '''kills the player'''
         global iteration
         this.vel = (0, 0)
@@ -74,7 +77,7 @@ class player:
             if (randChance(50)):
                 # chance the the partcle will be a darker green
                 part.color = (0, 150, 0)
-            particles.append(part)
+            GlobalVariables.particles.append(part)
         iteration = 0  # resets the global iteration to act as a makeshift timer so the transition to the end game menu isn't instantaneous
 
     def applySpeedLimit(this):
@@ -83,27 +86,27 @@ class player:
         if (distance(this.vel) > 5):
             this.vel = multPoint(this.vel, 0.97)
 
-    def control(this, activecontr, particles, sounds, projectiles):
+    def control(this):
         '''handles the player controls'''
         acceleration = 0.15  # speed of movement
         rotspd = 0.005  # speed of aiming
-        if (activecontr[0]):  # up
+        if (GlobalVariables.activecontr[0]):  # up
             this.vel = addPoints(this.vel, multPoint(xyComponent(this.angle), acceleration))
-            this.thrustParticle(math.pi,particles)
-        if (activecontr[1]):  # down
+            this.thrustParticle(math.pi)
+        if (GlobalVariables.activecontr[1]):  # down
             this.vel = addPoints(this.vel, multPoint(xyComponent(this.angle), -1 * acceleration))
             thrang = 1
             if (randChance(50)):
                 thrang *= -1
-            this.thrustParticle(thrang, particles)
-        if (activecontr[2]):  # right
+            this.thrustParticle(thrang)
+        if (GlobalVariables.activecontr[2]):  # right
             this.rotvel += rotspd
-        if (activecontr[3]):  # left
+        if (GlobalVariables.activecontr[3]):  # left
             this.rotvel -= rotspd
-        if (activecontr[4]):  # fire
-            this.fire(sounds, projectiles)
+        if (GlobalVariables.activecontr[4]):  # fire
+            this.fire()
 
-    def thrustParticle(this, reldir, particles):
+    def thrustParticle(this, reldir):
         '''emits particles to show acceleration'''
         force = multPoint(xyComponent(this.angle + reldir), 0.7)
         part = particle(addPoints(this.pos, randPoint(5)), multPoint(force, 5), (255, 150, 0))
@@ -112,7 +115,7 @@ class player:
         if (randChance(50)):
             part.color = (200, 200, 0)
         part.thickness = 3
-        particles.append(part)
+        GlobalVariables.particles.append(part)
 
     def curWep(this):
         '''returns a power weapon if the player has one equipped, otherwise returns it's primary weapon'''
@@ -120,13 +123,13 @@ class player:
             return this.primaryWep
         return this.powerWep
 
-    def fire(this, sounds, projectiles):
+    def fire(this):
         '''triggers the currently equipped weapon'''
         wepfire = this.curWep()
-        if (wepfire.trigger(this.pos, this.angle, this.vel, sounds, projectiles)):
+        if (wepfire.trigger(this.pos, this.angle, this.vel)):
             this.powerEvent(1, wepfire)
 
-    def draw(this, maincam):
+    def draw(this):
         '''draws the player to the global cam query'''
         if (this.health == None):
             return
@@ -146,5 +149,5 @@ class player:
         fshape.pos = pshape.pos
         fshape.angle = pshape.angle
         fshape.thickness = 0
-        fshape.draw(maincam)
-        pshape.draw(maincam)
+        fshape.draw(GlobalVariables.maincam)
+        pshape.draw(GlobalVariables.maincam)

@@ -1,4 +1,4 @@
-
+import GlobalVariables
 from gameFunctions import *
 
 from Enemy import enemy
@@ -7,6 +7,7 @@ from MotherCowDeath import motherCowDeath
 from Alien import alien
 from EnemyBullet import enemyBullet
 
+# the motherCow is an enemy that fires in eight different directions and releases alien enemies
 class motherCow(enemy):
     def __init__(this, pos):
         enemy.__init__(this, pos)
@@ -33,34 +34,34 @@ class motherCow(enemy):
         for vert in verts:
             this.form.verts.append(subtractPoints(vert, (10, 0)))
 
-    def kill(this, sounds, particles):
+    def kill(this):
         enemy.kill(this)
-        sounds[11].play()
+        GlobalVariables.sounds[11].play()
         getPoints(750)
         body = motherCowDeath(this.pos, this.vel)
-        particles.append(body)
+        GlobalVariables.particles.append(body)
 
-    def update(this, sounds, enemies, projectiles):
+    def update(this):
         enemy.update(this)
         this.angle += this.rot
         this.spawnwait -= 1
         if (this.spawnwait <= 0):
-            sounds[16].play()
+            GlobalVariables.sounds[16].play()
             this.spawnwait = 120
             al = alien(this.pos)
-            enemies.append(al)
+            GlobalVariables.enemies.append(al)
             for i in range(8):
                 ang = math.pi * 2 * (i / 8) + this.angle
                 pos = multPoint(xyComponent(ang), this.radius)
                 pos = addPoints(this.pos, pos)
                 proj = enemyBullet(pos, ang, 4)
-                projectiles.append(proj)
+                GlobalVariables.projectiles.append(proj)
 
-    def draw(this, maincam):
+    def draw(this):
         this.form.angle = this.angle
         this.form.pos = this.pos
         this.form.color = (255, 150, 0)
         this.form.thickness = 2
         this.form.fill = (50, 20, 0)
         this.form.scale = 5
-        maincam.toDraw(this.form)
+        GlobalVariables.maincam.toDraw(this.form)

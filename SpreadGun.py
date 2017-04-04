@@ -1,9 +1,10 @@
 from ezmath import *
+import GlobalVariables
+from Weapon import weapon
+from Poly import poly
+from Projectile import projectile
 
-import weapon
-import poly
-import projectile
-
+# a gun that shoots 5 fast moving projectiles that spread out and hit multiple targets
 class spreadGun(weapon):
     def __init__(this):
         '''initializes the spreadgun'''
@@ -11,30 +12,30 @@ class spreadGun(weapon):
         this.fireDelay = 15
         this.ammo = 50
 
-    def draw(this, p1, maincam):
+    def draw(this):
         '''draws the spreadgun reticle'''
         thick = 4
         col = (0, 100, 255)
 
         ret1 = poly((0, 0), (1, .6))
-        tpos = transform((20, 10), (0, 0), p1.angle)
-        ret1.pos = addPoints(tpos, p1.pos)
+        tpos = transform((20, 10), (0, 0), GlobalVariables.p1.angle)
+        ret1.pos = addPoints(tpos, GlobalVariables.p1.pos)
         ret1.thickness = thick
         ret1.color = col
         ret1.scale = this.ammo / 3
-        ret1.angle = p1.angle
+        ret1.angle = GlobalVariables.p1.angle
         ret2 = poly((0, 0), (1, -.6))
-        tpos = transform((20, -10), (0, 0), p1.angle)
-        ret2.pos = addPoints(tpos, p1.pos)
+        tpos = transform((20, -10), (0, 0), GlobalVariables.p1.angle)
+        ret2.pos = addPoints(tpos, GlobalVariables.p1.pos)
         ret2.thickness = thick
         ret2.color = col
         ret2.scale = this.ammo / 3
-        ret2.angle = p1.angle
+        ret2.angle = GlobalVariables.p1.angle
 
-        maincam.toDraw(ret1)
-        maincam.toDraw(ret2)
+        GlobalVariables.maincam.toDraw(ret1)
+        GlobalVariables.maincam.toDraw(ret2)
 
-    def fire(this, pos, aim, vel, projectiles):
+    def fire(this, pos, aim, vel):
         '''releases 5 evenly spread projectiles'''
         this.ammo -= 1
         for i in range(5):
@@ -46,13 +47,13 @@ class spreadGun(weapon):
             proj.form = poly((0, -3), (0, 3))
             proj.form.color = (0, 200, 255)
             proj.form.thickness = 4
-            projectiles.append(proj)
+            GlobalVariables.projectiles.append(proj)
 
-    def trigger(this, pos, aim, vel, sounds ):
+    def trigger(this, pos, aim, vel):
         if (this.ammo <= 0):
             return False
         if (this.firewait <= 0):
-            sounds[5].play()
+            GlobalVariables.sounds[5].play()
             this.fire(pos, aim, vel)
             this.firewait = this.fireDelay
             return True

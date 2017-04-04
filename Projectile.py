@@ -6,10 +6,10 @@ import sys
 import time
 import pygame
 from ezmath import *
-
+import GlobalVariables
+from Poly import poly
 from Particle import particle
 from Enemy import enemy
-
 from Asteroid import asteroid
 
 
@@ -39,38 +39,38 @@ class projectile:
             # this.checkEnemyCollisions()
             # this.checkBogeyBulletCollisions()
 
-    def removeCheck(this, projectiles):
+    def removeCheck(this):
         '''removes the projectile if it's time is up'''
         if (this.life <= 0):
-            if (this in projectiles):
-                projectiles.remove(this)
+            if (this in GlobalVariables.projectiles):
+                GlobalVariables.projectiles.remove(this)
 
-    def checkBogeyBulletCollisions(this, projectiles):
+    def checkBogeyBulletCollisions(this):
         '''handles collisions with enemy projectiles'''
-        for bul in projectiles:
+        for bul in GlobalVariables.projectiles:
             if (bul.friendly):
                 continue  # skips this instance if does not need to check collision
             if (collision(this, bul)):
                 this.burst()
-                projectiles.remove(bul)
-                if (this in projectiles):
+                GlobalVariables.projectiles.remove(bul)
+                if (this in GlobalVariables.projectiles):
                     this.life = 0
 
-    def checkEnemyCollisions(this, enemies):
+    def checkEnemyCollisions(this):
         '''checks for collisions with enemies'''
-        for en in enemies:
+        for en in GlobalVariables.enemies:
             if (collision(this, en)):
                 this.hit(en)
 
-    def checkAsteroidCollisions(this, enemies):
+    def checkAsteroidCollisions(this):
         '''checks for collisions only with asteriod objects, used for enemy bullets colliding with asteroids'''
-        for ast in enemies:
+        for ast in GlobalVariables.enemies:
             if (not type(ast) is asteroid):
                 continue  # skips the instance if it is not an asteroid
             if (collision(ast, this)):
                 this.hit(ast)
 
-    def hit(this, en, sounds, particles, enemies, items):
+    def hit(this, en):
         if (not this.friendly):
             if (baseIs(en, projectile)):
                 if (this.friendly == en.friendly):
@@ -79,46 +79,46 @@ class projectile:
             else:
                 return
         this.life = 0
-        this.burst(sounds, particles)
+        this.burst()
         if (baseIs(en, enemy)):
-            this.enHit(en, sounds, enemies, particles, items)
+            this.enHit(en)
 
-    def enHit(this, en, sounds, enemies, particles, items):
+    def enHit(this, en):
         '''hits a specified enemy'''
         # damages the enemy instance it collides with
         if (en.dead()):
             return
         en.health -= this.damage
         if (en.health <= 0):
-            en.kill(sounds, enemies, particles, items)
+            en.kill()
 
-    def burst(this, sounds, particles):
+    def burst(this):
         '''the visual effect of the projectile's collision'''
         if (this.damage >= 1):
-            sounds[12].play()
+            GlobalVariables.sounds[12].play()
         else:
-            sounds[14].play()
+            GlobalVariables.sounds[14].play()
         for i in range(random.randrange(4, 8)):
             # add some pretty particles
             part = particle(this.pos, randPoint(5), (255, 255, 0))
             part.damping = 0.9
-            particles.append(part)
+            GlobalVariables.particles.append(part)
 
-    def draw(this, poly, maincam, p1):
+    def draw(this):
         '''adds the projectile to the main drawQuery'''
         if (this.form == None):
             # creates a temporary form to render if it has no previously defined form
             tform = poly()
             tform.color = this.color
             tform.thickness = this.thickness
-            tform.verts = [(0, 0), (distance(subtractPoints(this.vel, p1.vel)), 0)]
+            tform.verts = [(0, 0), (distance(subtractPoints(this.vel, GlobalVariables.p1.vel)), 0)]
             tform.pos = this.pos
-            tform.angle = direction(subtractPoints(this.vel, p1.vel))
-            maincam.toDraw(tform)
+            tform.angle = direction(subtractPoints(this.vel, GlobalVariables.p1.vel))
+            GlobalVariables.maincam.toDraw(tform)
             return
         this.form.pos = this.pos
         this.form.angle = direction(this.vel)
-        maincam.toDraw(this.form)
+        GlobalVariables.maincam.toDraw(this.form)
 
     def dead(this):
         return this.life <= 0

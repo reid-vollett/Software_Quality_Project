@@ -1,4 +1,4 @@
-
+import GlobalVariables
 from gameFunctions import *
 
 from Projectile import projectile
@@ -17,7 +17,7 @@ class missile(projectile):
         this.life = 110
         this.lock = None
 
-    def update(this, enemies):
+    def update(this):
         '''handles the logic step for the current instance'''
         projectile.update(this)
         if (this.life <= 100):
@@ -25,18 +25,18 @@ class missile(projectile):
                 this.search()
             else:
                 this.seek(this.lock)
-            if (not this.lock in enemies):
+            if (not this.lock in GlobalVariables.enemies):
                 this.lock = None
 
-    def search(this, enemies):
+    def search(this):
         '''seeks out an enemy to lock onto'''
-        for en in enemies:
+        for en in GlobalVariables.enemies:
             if (distance(en.pos, this.pos) <= 150):
                 this.lock = en
 
-    def seek(this, en, enemies):
+    def seek(this, en):
         '''homes in to an enemy'''
-        if (not en in enemies):
+        if (not en in GlobalVariables.enemies):
             return
         # dampens the velocity to account for course readjustment
         this.vel = multPoint(this.vel, 0.92)
@@ -44,7 +44,7 @@ class missile(projectile):
         this.vel = addPoints(this.vel, multPoint(normal(this.pos, en.pos), 1))
         this.thrustParticle()
 
-    def thrustParticle(this, particles):
+    def thrustParticle(this):
         '''emits particles to show that it is seeking an enemy'''
         force = multPoint(xyComponent(this.form.angle - math.pi), 0.7)
         part = particle(addPoints(this.pos, randPoint(randRange(4, 6))), multPoint(force, 5), (255, 255, 0))
@@ -54,12 +54,12 @@ class missile(projectile):
         if (randChance(50)):
             part.color = (200, 200, 0)
         part.thickness = 2
-        particles.append(part)
+        GlobalVariables.particles.append(part)
 
-    def hit(this, en, p1, colcheck0, colcheck1, colcheck2):
+    def hit(this, en):
         '''collides with the specified enemy'''
         projectile.hit(this, en)
-        for cols in collidingColchecks(this.pos, 30, p1, colcheck0, colcheck1, colcheck2):
+        for cols in collidingColchecks(this.pos, 30):
             for en in cols:
                 if (not baseIs(en, enemy) or en.dead()):
                     continue
@@ -69,14 +69,14 @@ class missile(projectile):
                 if (en.health <= 0):
                     en.kill()
 
-    def burst(this, sounds, particles, maincam):
+    def burst(this):
         '''creates a small flash and emits some explosion particles'''
-        sounds[13].play()
+        GlobalVariables.sounds[13].play()
         for i in range(random.randrange(5, 10)):
             part = particle(this.pos, randCirc(5), (255, 255, 0))
-            particles.append(part)
+            GlobalVariables.particles.append(part)
         blast = circ()
         blast.pos = this.pos
         blast.scale = 30
         blast.color = (255, 255, 100)
-        maincam.toDraw(blast)
+        GlobalVariables.maincam.toDraw(blast)

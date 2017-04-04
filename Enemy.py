@@ -6,14 +6,16 @@ import sys
 import time
 import pygame
 from ezmath import *
+import GlobalVariables
 
 
 #from Projectile import projectile
 from Item import item
 
+# the enemy base class for all enemy type objects
 class enemy:
     def __init__(this, pos):
-        '''initializes an enemy object'''
+        ''''initializes an enemy object'''
         this.projectile = importProjectile()
         this.cck = False
         this.pos = pos
@@ -21,22 +23,21 @@ class enemy:
         this.health = 1
         this.radius = 10
 
-    def kill(this,items):
+    def kill(this):
         '''kills the enemy instance'''
-        this.itemDrop(items)  # handles dropping powerups
+        this.itemDrop()  # handles dropping powerups
         this.health = None  # removes the enemy from the world
 
-    def itemDrop(this, items):
+    def itemDrop(this):
         '''has a chance to drop an item'''
-        if (len(items) > 1):
+        if (len(GlobalVariables.items) > 1):
             return
         if (not randChance(5)):
             # 95% of the time nothing is dropped
             return
         # ~1 in every 20 kills an item is dropped
-        pos = this.pos
-        power = item.randItem(pos)
-        items.append(power)
+        power = item.randItem(this.pos)
+        GlobalVariables.items.append(power)
 
     def update(this):
         '''handles the logic step for the current enemy instance'''
@@ -49,12 +50,12 @@ class enemy:
         '''default rendering for an enemy base type is to not render anything'''
         0
 
-    def hit(this, ob, sounds, particles, enemies, items):
+    def hit(this, ob):
         if (baseIs(ob, this.projectile)):
-            this.projHit(ob, sounds, particles, enemies, items)
+            this.projHit(ob)
 
-    def projHit(this, proj, sounds, particles, enemies, items):
-        proj.hit(this, sounds, particles, enemies, items)
+    def projHit(this, proj):
+        proj.hit(this)
 
     def dead(this):
         return this.health == None
