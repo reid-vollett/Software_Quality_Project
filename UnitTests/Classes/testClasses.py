@@ -8,7 +8,8 @@ class Alien(unittest.TestCase):
         print("Class Takedown\n")
 
     def testCase(self):
-        print("I am a test case, big and stronk2")
+        """Check that widgets are created with correct default size"""
+        print("test")
 
 class Asteroird(unittest.TestCase):
     def setUp(self):
@@ -24,6 +25,10 @@ class Basher(unittest.TestCase):
 
     def tearDown(self):
         print("Class Takedown\n")
+
+    def testCase(self):
+        """Check that widgets are created with correct default size"""
+        print("test")
 
 
 class Camera(unittest.TestCase):
