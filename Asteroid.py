@@ -1,10 +1,8 @@
-from ezmath import *
-from gameFunctions import *
-
-import GlobalVariables
 from Enemy import enemy
-from Poly import poly
 from Particle import particle
+from Poly import poly
+from gameFunctions import *
+from src import GlobalVariables
 
 class asteroid(enemy):
     def __init__(this, pos, radius):

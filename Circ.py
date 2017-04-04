@@ -1,5 +1,6 @@
 from Shape import shape
-import GlobalVariables
+from src import GlobalVariables
+
 
 class circ(shape):
     def __init__(this, size=10):

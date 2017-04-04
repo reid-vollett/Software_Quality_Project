@@ -1,9 +1,8 @@
-from ezmath import *
-
-import GlobalVariables
-from Weapon import weapon
 from Particle import particle
 from Poly import poly
+from Weapon import weapon
+from ezmath import *
+from src import GlobalVariables
 
 
 # the player object, what the user is controlling

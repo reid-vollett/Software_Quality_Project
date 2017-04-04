@@ -1,17 +1,10 @@
-import math
-import os
-import random
-import sys
-import time
-import pygame
-from ezmath import *
-from gameFunctions import *
-import GlobalVariables
-
 from Enemy import enemy
-from Poly import poly
-from Particle import particle
 from EnemyBullet import enemyBullet
+from Particle import particle
+from Poly import poly
+from gameFunctions import *
+from src import GlobalVariables
+
 
 class alien(enemy):
     def __init__(this, pos):

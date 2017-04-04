@@ -1,18 +1,10 @@
 #Projectile class
-import math
-import os
-import random
-import sys
-import time
-import pygame
-from ezmath import *
-import GlobalVariables
-from Poly import poly
-from Particle import particle
-from Enemy import enemy
 from Asteroid import asteroid
-
-
+from Enemy import enemy
+from Particle import particle
+from Poly import poly
+from ezmath import *
+from src import GlobalVariables
 
 
 class projectile:

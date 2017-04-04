@@ -1,12 +1,7 @@
 #Particle Class
-import math
-import os
-import random
-import sys
-import time
-import pygame
 from ezmath import *
-import GlobalVariables
+from src import GlobalVariables
+
 
 class particle:
     def __init__(this, pos, vel, color=(255, 255, 0), thickness=2):

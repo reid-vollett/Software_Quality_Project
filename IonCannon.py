@@ -1,8 +1,9 @@
-from ezmath import *
-import GlobalVariables
-from Weapon import weapon
-from Poly import poly
 from IonBullet import ionBullet
+from Poly import poly
+from Weapon import weapon
+from ezmath import *
+from src import GlobalVariables
+
 
 # the ion cannon fires a fast traveling steady beam of projectiles
 class ionCannon(weapon):

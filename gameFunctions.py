@@ -1,5 +1,6 @@
 from ezmath import *
-import GlobalVariables
+from src import GlobalVariables
+
 
 def getPoints(pts, ):
     #global score

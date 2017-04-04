@@ -13,7 +13,6 @@ import time
 
 import pygame
 
-import GlobalVariables
 from Alien import alien
 from Asteroid import asteroid
 from Basher import basher

@@ -1,7 +1,8 @@
-from ezmath import *
-import GlobalVariables
-from Particle import particle
 from Circ import circ
+from Particle import particle
+from ezmath import *
+from src import GlobalVariables
+
 
 class motherCowDeath(particle):
     def __init__(this, pos, vel):

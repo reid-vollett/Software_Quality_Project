@@ -1,11 +1,10 @@
-import GlobalVariables
+from Alien import alien
+from Enemy import enemy
+from EnemyBullet import enemyBullet
+from MotherCowDeath import motherCowDeath
+from Poly import poly
 from gameFunctions import *
 
-from Enemy import enemy
-from Poly import poly
-from MotherCowDeath import motherCowDeath
-from Alien import alien
-from EnemyBullet import enemyBullet
 
 # the motherCow is an enemy that fires in eight different directions and releases alien enemies
 class motherCow(enemy):

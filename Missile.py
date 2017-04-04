@@ -1,11 +1,9 @@
-import GlobalVariables
-from gameFunctions import *
-
-from Projectile import projectile
-from Poly import poly
-from Particle import particle
-from Enemy import enemy
 from Circ import circ
+from Enemy import enemy
+from Particle import particle
+from Poly import poly
+from Projectile import projectile
+from gameFunctions import *
 
 class missile(projectile):
     def __init__(this, pos, aim, speed):

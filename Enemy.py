@@ -1,16 +1,8 @@
 #enemy class
-import math
-import os
-import random
-import sys
-import time
-import pygame
-from ezmath import *
-import GlobalVariables
-
-
-#from Projectile import projectile
 from Item import item
+from ezmath import *
+from src import GlobalVariables
+
 
 # the enemy base class for all enemy type objects
 class enemy:

@@ -1,8 +1,9 @@
-from ezmath import*
-import GlobalVariables
-from Projectile import projectile
-from Particle import particle
 from Circ import circ
+from Particle import particle
+from Projectile import projectile
+from ezmath import*
+from src import GlobalVariables
+
 
 class ionBullet(projectile):
     def __init__(this, pos, aim, speed):

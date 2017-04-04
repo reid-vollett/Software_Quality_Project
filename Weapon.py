@@ -1,7 +1,6 @@
-from ezmath import *
-
-import GlobalVariables
 from Projectile import projectile
+from ezmath import *
+from src import GlobalVariables
 
 # weapons store data relevant to what the player's fire control will do
 class weapon:

@@ -1,9 +1,10 @@
-from ezmath import *
-import GlobalVariables
-from Projectile import projectile
-from Poly import poly
-from Player import player
 from Asteroid import asteroid
+from Player import player
+from Poly import poly
+from Projectile import projectile
+from ezmath import *
+from src import GlobalVariables
+
 
 class enemyBullet(projectile):
     def __init__(this, pos, aim, speed):

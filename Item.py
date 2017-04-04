@@ -1,30 +1,12 @@
-import math
-import os
-import random
-import sys
-import time
-import pygame
-from ezmath import *
-
-
-from Poly import poly
 from Img import img
-import GlobalVariables
-
+from Poly import poly
+from ezmath import *
+from src import GlobalVariables
 
 
 # items are powerups that are dropped from enemies and the player can pick up
 class item:
     def __init__(this, pos, power):
-        '''import functions to fix cyclical dependicies'''
-        this.overShield = importOverShield()
-        this.deflectorShield = importDeflectorShield()
-        this.quadShooter = importQuadShooter()
-        this.spreadGun = importSpreadGun()
-        this.ionCannon = importIonCannon()
-        this.rapidGun = importRapidGun()
-        this.missileLauncher = importMissileLauncher()
-
         '''initializes an item object'''
         this.pos = pos
         this.form = poly((10, 0), (7, 7), (0, 10), (-7, 7), (-10, 0), (-7, -7), (0, -10), (7, -7))
@@ -37,32 +19,39 @@ class item:
 
     def randItem(pos):
         '''static: returns a random item'''
+        overShield = importOverShield()
+        quadShooter = importQuadShooter()
+        deflectorShield = importDeflectorShield()
         rand = random.randrange(-3, 4)
         if (rand >= 0):
             return item(pos, rand)
         else:
             if (rand == -1):
-                return this.overShield(pos)
+                return overShield(pos)
             if (rand == -2):
-                return this.deflectorShield(pos)
+                return deflectorShield(pos)
             if (rand == -3):
-                return this.quadShooter(pos)
+                return quadShooter(pos)
 
     def grab(this):
         '''gives the item to the specified player'''
+        spreadGun = importSpreadGun()
+        ionCannon = importIonCannon()
+        rapidGun = importRapidGun()
+        missileLauncher = importMissileLauncher()
         if (this in GlobalVariables.items):
             GlobalVariables.items.remove(this)
             GlobalVariables.sounds[7].play()
         if (this.pow == -1):
             this.tryAddPower()
         if (this.pow == 0):
-            GlobalVariables.p1.powerWep = this.spreadGun()
+            GlobalVariables.p1.powerWep = spreadGun()
         if (this.pow == 1):
-            GlobalVariables.p1.powerWep = this.ionCannon()
+            GlobalVariables.p1.powerWep = ionCannon()
         if (this.pow == 2):
-            GlobalVariables.p1.powerWep = this.rapidGun()
+            GlobalVariables.p1.powerWep = rapidGun()
         if (this.pow == 3):
-            GlobalVariables.p1.powerWep = this.missileLauncher()
+            GlobalVariables.p1.powerWep = missileLauncher()
 
     def tryAddPower(this):
         for pow in GlobalVariables.p1.powerups:
