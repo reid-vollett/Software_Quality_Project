@@ -1454,7 +1454,7 @@ def loadHiscore():
 def init():
     '''initializes the program'''
     print("initializing...", end="")
-    global screen
+    #global screen
     global font
     global tinyfont
 
@@ -1478,33 +1478,33 @@ def init():
 def startGame():
     '''starts a new round'''
     #global maincam
-    global p1
-    global mode
-    global score
-    global scoredrop
-    global scoredropper
-    global enemies
-    global stars
-    global projectiles
-    global items
-    global particles
-    global enemyspawndelay
-    global cowspawndelay
+    #global p1
+    #global mode
+    #global score
+    #global scoredrop
+    #global scoredropper
+    #global enemies
+    #global stars
+    #global projectiles
+    #global items
+    #global particles
+    #global enemyspawndelay
+    #global cowspawndelay
 
-    enemies = list()
-    stars = list()
-    projectiles = list()
-    items = list()
-    particles = list()
+    GlobalVariables.enemies = list()
+    GlobalVariables.stars = list()
+    GlobalVariables.projectiles = list()
+    GlobalVariables.items = list()
+    GlobalVariables.particles = list()
 
     gotoMode(1)
-    score = 0
-    scoredrop = 500
-    enemyspawndelay = 0
-    cowspawndelay = 0
-    scoredropper = None
+    GlobalVariables.score = 0
+    GlobalVariables.scoredrop = 500
+    GlobalVariables.enemyspawndelay = 0
+    GlobalVariables.cowspawndelay = 0
+    GlobalVariables.scoredropper = None
     GlobalVariables.maincam = camera()
-    p1 = player()
+    GlobalVariables.p1 = player()
 
     # testpow = item((0, 40), 2)
     # items.append(testpow)
@@ -1515,7 +1515,7 @@ def startGame():
 
     # fills in the stars
     for i in range(200):
-        stars.append(randPoint(500))
+        GlobalVariables.stars.append(randPoint(500))
 
 """
 def getPoints(pts):
@@ -1532,25 +1532,25 @@ def getPoints(pts):
 """
 
 def scoreDrops():
-    global scoredropper
-    if (scoredropper == None):
+    #global scoredropper
+    if (GlobalVariables.scoredropper == None):
         return
-    ppos = multPoint(xyComponent(p1.angle), 100)
-    ppos = addPoints(ppos, p1.pos)
-    if (scoredropper <= 0):
+    ppos = multPoint(xyComponent(GlobalVariables.p1.angle), 100)
+    ppos = addPoints(ppos, GlobalVariables.p1.pos)
+    if (GlobalVariables.scoredropper <= 0):
         scoredropper = None
         bonus = item.randItem(ppos)
-        items.append(bonus)
+        GlobalVariables.items.append(bonus)
     else:
         col = (255, 255, 255)
-        if (scoredropper % 8 > 3):
+        if (GlobalVariables.scoredropper % 8 > 3):
             col = (100, 100, 100)
         pdraw = poly.circleGon(8, 15)
         pdraw.thickness = 3
         pdraw.color = col
         pdraw.pos = ppos
         GlobalVariables.maincam.toDraw(pdraw)
-        scoredropper -= 1
+        GlobalVariables.scoredropper -= 1
 
 
 def lose():
@@ -1601,24 +1601,24 @@ def handleGlobalControls(keys):
 
 def handleMenuControls():
     '''handles GUI navigation in the menu screens'''
-    global selection
+    #global selection
     if (GlobalVariables.activecontr[5] and (not GlobalVariables.lastactivec[5])):
-        select(selection)
+        select(GlobalVariables.selection)
         GlobalVariables.sounds[1].play()
         GlobalVariables.sounds[1].play()
     if (GlobalVariables.activecontr[1] and (not GlobalVariables.lastactivec[1])):
-        selection += 1
+        GlobalVariables.selection += 1
         GlobalVariables.sounds[0].play()
     if (GlobalVariables.activecontr[0] and (not GlobalVariables.lastactivec[0])):
-        selection -= 1
+        GlobalVariables.selection -= 1
         GlobalVariables.sounds[0].play()
-    if (selection < 0):
-        selection = 0
+    if (GlobalVariables.selection < 0):
+        GlobalVariables.selection = 0
 
 
 def select(selection):
     '''performs an action depending on the currently selected option in the menu'''
-    if (mode == 0):
+    if (GlobalVariables.mode == 0):
         if (selection == 0):
             startGame()
         if (selection == 1):
@@ -1627,7 +1627,7 @@ def select(selection):
             pygame.mixer.stop()
             pygame.quit()
             raise ()
-    elif (mode == 3):
+    elif (GlobalVariables.mode == 3):
         if (selection == 0):
             startGame()
         if (selection == 1):
@@ -1660,24 +1660,24 @@ def saveScore(name, points):
 
 def gotoMode(modenum):
     '''goes to a specified mode and performs necessary actions before and after'''
-    global mode
-    global iteration
-    global selection
+    #global mode
+    #global iteration
+    #global selection
 
     if (modenum == 0):
         loadTitlesprite()
     if (GlobalVariables.mode == 0):
         disposeTitlesprite()
 
-    selection = 0
-    mode = modenum
-    iteration = 0
+    GlobalVariables.selection = 0
+    GlobalVariables.mode = modenum
+    GlobalVariables.iteration = 0
 
 
 def loadTitlesprite():
     '''loads the title screen background image'''
-    global titlesprite
-    titlesprite = pygame.image.load(compilePath(os.path.join("Graphics", "title.png")))
+    #global titlesprite
+    GlobalVariables.titlesprite = pygame.image.load(compilePath(os.path.join("Graphics", "title.png")))
 
 
 def disposeTitlesprite():
@@ -1709,136 +1709,135 @@ def loop():
 
 def update():
     '''main game logic is handled here'''
-    global iteration
+    #global iteration
     updateMode()
-    iteration += 1
+    GlobalVariables.iteration += 1
 
 
 def updateNoCol():
-    global iteration
+    #global iteration
     updateModeNoCol()
-    iteration += 1
+    GlobalVariables.iteration += 1
 
 
 def updateMode():
     '''handles update logic based on the current game mode'''
-    if (mode == 0):  # main menu
+    if (GlobalVariables.mode == 0):  # main menu
         updateMenu()
-    elif (mode == 1):  # gameplay
+    elif (GlobalVariables.mode == 1):  # gameplay
         updateGameplay()
-    elif (mode == 2):  # name entry
+    elif (GlobalVariables.mode == 2):  # name entry
         updateNameEntry()
-    elif (mode == 3):  # scoreboard
+    elif (GlobalVariables.mode == 3):  # scoreboard
         updateScoreboard()
 
 
 def updateModeNoCol():
     '''handles update logic based on the current game mode'''
-    if (mode == 0):  # main menu
+    if (GlobalVariables.mode == 0):  # main menu
         updateMenu()
-    elif (mode == 1):  # gameplay
+    elif (GlobalVariables.mode == 1):  # gameplay
         updateGameplayNoCol()
-    elif (mode == 2):  # name entry
+    elif (GlobalVariables.mode == 2):  # name entry
         updateNameEntry()
-    elif (mode == 3):  # scoreboard
+    elif (GlobalVariables.mode == 3):  # scoreboard
         updateScoreboard()
 
 
 def updateMenu():
     '''handles update logic for the main menu'''
-    global selection
+    #global selection
     handleMenuControls()
-    if (selection > 2):
-        selection = 2
+    if (GlobalVariables.selection > 2):
+        GlobalVariables.selection = 2
 
 
 def updateGameplay():
     '''handles the update logic for in-game'''
-    for part in particles:
-        part.update(particles, p1)  # updates all the particles
-    for proj in projectiles:
+    for part in GlobalVariables.particles:
+        part.update()  # updates all the particles
+    for proj in GlobalVariables.projectiles:
         proj.update()  # updates all the projectiles
-    for en in enemies:
+    for en in GlobalVariables.enemies:
         en.update()  # updates all the enemies
-    for power in items:
+    for power in GlobalVariables.items:
         power.update()  # updates all the items
-    p1.update()  # updates the player
+    GlobalVariables.p1.update()  # updates the player
     handleCollisions()
     scoreDrops()
-    GlobalVariables.maincam.orient(p1.pos, p1.angle + math.pi / 2)  # orients the camera to follow the player
+    GlobalVariables.maincam.orient(GlobalVariables.p1.pos, GlobalVariables.p1.angle + math.pi / 2)  # orients the camera to follow the player
     # removes necessary projectiles. they are not removed as the projectile list is updating because it causes an iteration skip which results in some projectiles not getting updated
-    for proj in projectiles:
-        proj.removeCheck(projectiles)
+    for proj in GlobalVariables.projectiles:
+        proj.removeCheck()
     spawnEnemies()  # spawns/despawns enemies into the world
     spawnStars()  # spawns/despawns stars around the player as they move
     if (
-            p1.health == None and iteration > 60):  # acts as a makeshift timer to tell the screen to transition to the end screen after the player has been dead for a second
+            GlobalVariables.p1.health == None and GlobalVariables.iteration > 60):  # acts as a makeshift timer to tell the screen to transition to the end screen after the player has been dead for a second
         lose()
 
 
 def updateGameplayNoCol():
-    for part in particles:
-        part.update(particles, p1)  # updates all the particles
-    for proj in projectiles:
+    for part in GlobalVariables.particles:
+        part.update()  # updates all the particles
+    for proj in GlobalVariables.projectiles:
         proj.update()  # updates all the projectiles
-    for en in enemies:
+    for en in GlobalVariables.enemies:
         en.update()  # updates all the enemies
-    for power in items:
+    for power in GlobalVariables.items:
         power.update()  # updates all the items
-    p1.update()  # updates the player
+    GlobalVariables.p1.update()  # updates the player
     # handleCollisions()
     scoreDrops()
-    GlobalVariables.maincam.orient(p1.pos, p1.angle + math.pi / 2)  # orients the camera to follow the player
+    GlobalVariables.maincam.orient(GlobalVariables.p1.pos, GlobalVariables.p1.angle + math.pi / 2)  # orients the camera to follow the player
     # removes necessary projectiles. they are not removed as the projectile list is updating because it causes an iteration skip which results in some projectiles not getting updated
-    for proj in projectiles:
-        proj.removeCheck(projectiles)
+    for proj in GlobalVariables.projectiles:
+        proj.removeCheck()
     spawnEnemies()  # spawns/despawns enemies into the world
     spawnStars()  # spawns/despawns stars around the player as they move
-    if (
-            p1.health == None and iteration > 60):  # acts as a makeshift timer to tell the screen to transition to the end screen after the player has been dead for a second
+    if (GlobalVariables.p1.health == None and GlobalVariables.iteration > 60):  # acts as a makeshift timer to tell the screen to transition to the end screen after the player has been dead for a second
         lose()
 
 
 def updateNameEntry():
     '''updates the name entry screen'''
-    global p1
+    #global p1
     # turns the player object into a string that the name on the scoreboard will be saved as so we don't have to create a new variable
-    if (not type(p1) is str):
-        scores = loadScoreboard()
-        if (score < scores[4][1]):
+    if (not type(GlobalVariables.p1) is str):
+        GlobalVariables.scores = loadScoreboard()
+        if (GlobalVariables.score < GlobalVariables.scores[4][1]):
             gotoMode(3)
             return
-        p1 = ""
+        GlobalVariables.p1 = ""
     tkeys = getTappedKeys()
     # parses the keyboard input into ascii characterss
     for k in tkeys:
         if (k == pygame.K_BACKSPACE):
-            p1 = p1[:len(p1) - 1]
+            GlobalVariables.p1 = GlobalVariables.p1[:len(GlobalVariables.p1) - 1]
         if (k == pygame.K_SPACE):
-            p1 += ' '
+            GlobalVariables.p1 += ' '
         if (k >= 48 and k <= 57):
             num = "0123456789"
-            p1 += num[k - 48]
+            GlobalVariables.p1 += num[k - 48]
         if (k >= 97 and k <= 122):
             alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            p1 += alph[k - 97]
+            GlobalVariables.p1 += alph[k - 97]
 
     # limits the name length to 12 characters
-    if (len(p1) > 12):
-        p1 = p1[:12]
+    if (len(GlobalVariables.p1) > 12):
+        GlobalVariables.p1 = GlobalVariables.p1[:12]
 
     # if enter is pressed, finish name entry
     if (pygame.K_RETURN in tkeys):
-        saveScore(p1, score)
+        saveScore(GlobalVariables.p1, GlobalVariables.score)
         gotoMode(3)
 
 
 def updateScoreboard():
     '''updates the scoreboard menu screen'''
-    global selection
+    #global selection
     handleMenuControls()
-    if (selection > 1):
-        selection = 1
+    if (GlobalVariables.selection > 1):
+        GlobalVariables.selection = 1
 
 
 def draw():
@@ -1853,13 +1852,13 @@ def draw():
 
 def drawMode():
     '''renders certain ways depending on the game mode'''
-    if (mode == 0):  # mainmenu
+    if (GlobalVariables.mode == 0):  # mainmenu
         drawMenu()
-    elif (mode == 1):  # in game
+    elif (GlobalVariables.mode == 1):  # in game
         drawGameplay()
-    elif (mode == 2):  # name entry
+    elif (GlobalVariables.mode == 2):  # name entry
         drawNameEntry()
-    elif (mode == 3):  # score board
+    elif (GlobalVariables.mode == 3):  # score board
         drawScoreboard()
 
 
@@ -1867,27 +1866,27 @@ def drawMenu():
     '''draws the main title screen'''
     buttonpos = (200, 450)
     selcol = (0, 255, 0)
-    if (iteration % 10 >= 5):  # selcol flashes btween green and dark green every 5 frames
+    if (GlobalVariables.iteration % 10 >= 5):  # selcol flashes btween green and dark green every 5 frames
         selcol = (0, 100, 0)
 
     # creates the selectable buttons, the flash if they are selcted
-    if (selection == 0):
+    if (GlobalVariables.selection == 0):
         startButton = font.render("START GAME", False, selcol)
     else:
         startButton = font.render("START GAME", False, (255, 255, 255))
-    if (selection == 1):
+    if (GlobalVariables.selection == 1):
         scoresButton = font.render("SCOREBOARD", False, selcol)
     else:
         scoresButton = font.render("SCOREBOARD", False, (255, 255, 255))
-    if (selection == 2):
+    if (GlobalVariables.selection == 2):
         exitButton = font.render("EXIT", False, selcol)
     else:
         exitButton = font.render("EXIT", False, (255, 255, 255))
     selector = font.render(">", False, (255, 255, 255))
 
     # renders the background
-    GlobalVariables.screen.blit(titlesprite, (0, 0))
-    GlobalVariables.screen.blit(selector, addPoints(buttonpos, (-15, selection * 40)))
+    GlobalVariables.screen.blit(GlobalVariables.titlesprite, (0, 0))
+    GlobalVariables.screen.blit(selector, addPoints(buttonpos, (-15, GlobalVariables.selection * 40)))
     GlobalVariables.screen.blit(startButton, addPoints(buttonpos, (0, 0)))
     GlobalVariables.screen.blit(scoresButton, addPoints(buttonpos, (0, 40)))
     GlobalVariables.screen.blit(exitButton, addPoints(buttonpos, (0, 80)))
@@ -1896,15 +1895,15 @@ def drawMenu():
 def drawGameplay():
     '''draws the gameplay'''
     drawStars()
-    for part in particles:
+    for part in GlobalVariables.particles:
         part.draw(poly)  # draws all the particles
-    for power in items:
+    for power in GlobalVariables.items:
         power.draw()  # draws all the items
-    for proj in projectiles:
-        proj.draw(poly)  # draws all the projectiles
-    for en in enemies:
+    for proj in GlobalVariables.projectiles:
+        proj.draw()  # draws all the projectiles
+    for en in GlobalVariables.enemies:
         en.draw()  # draws all the enemies
-    p1.draw()  # renders the player
+    GlobalVariables.p1.draw()  # renders the player
     GlobalVariables.maincam.render()  # renders the world objects throught the camera's point of view
     drawScore()
 
@@ -1922,12 +1921,12 @@ def drawGameplay():
 
 def drawNameEntry():
     '''draws the name entry screen'''
-    global p1
-    if (not type(p1) is str):
+    #global p1
+    if (not type(GlobalVariables.p1) is str):
         return
     sccol = (255, 255, 0)
     ncol = (0, 255, 255)
-    if (iteration % 10 >= 5):
+    if (GlobalVariables.iteration % 10 >= 5):
         sccol = (255, 150, 0)
         ncol = (0, 100, 255)
     title1 = font.render("YOU PLACED IN THE ", False, (255, 255, 255))
@@ -1937,8 +1936,8 @@ def drawNameEntry():
     GlobalVariables.blit(title1, (10, 300))
     GlobalVariables.screen.blit(title2, (350, 300))
     GlobalVariables.screen.blit(title3, (85, 340))
-    ntex = p1
-    if (len(p1) < 12):
+    ntex = GlobalVariables.p1
+    if (len(GlobalVariables.p1) < 12):
         ntex += '_'
     nametext = font.render(ntex, False, ncol)
     GlobalVariables.screen.blit(nametext, (180, 400))
@@ -1951,17 +1950,17 @@ def drawScoreboard():
     col = (255, 150, 0)
     selcol = (0, 255, 0)
     ycol = (0, 255, 255)
-    if (iteration % 10 >= 5):
+    if (GlobalVariables.iteration % 10 >= 5):
         col = (255, 255, 0)
         selcol = (0, 100, 0)
         ycol = (0, 100, 255)
     title = font.render("---SCOREBOARD---", False, col)
-    scoretext = font.render("YOU:                   " + str(score), False, ycol)
-    if (selection == 0):
+    scoretext = font.render("YOU:                   " + str(GlobalVariables.score), False, ycol)
+    if (GlobalVariables.selection == 0):
         startButton = font.render("START GAME", False, selcol)
     else:
         startButton = font.render("START GAME", False, (255, 255, 255))
-    if (selection == 1):
+    if (GlobalVariables.selection == 1):
         menuButton = font.render("MAIN MENU", False, selcol)
     else:
         menuButton = font.render("MAIN MENU", False, (255, 255, 255))
@@ -1977,8 +1976,8 @@ def drawScoreboard():
         itr += 1
 
     GlobalVariables.screen.blit(title, (150, 50))
-    GlobalVariables.screen.blit(selector, addPoints(buttonpos, (-15, selection * 40)))
-    if (score > 0):
+    GlobalVariables.screen.blit(selector, addPoints(buttonpos, (-15, GlobalVariables.selection * 40)))
+    if (GlobalVariables.score > 0):
         GlobalVariables.screen.blit(scoretext, (150, 380))
     GlobalVariables.screen.blit(startButton, addPoints(buttonpos, (0, 0)))
     GlobalVariables.screen.blit(menuButton, addPoints(buttonpos, (0, 40)))
@@ -1987,7 +1986,7 @@ def drawScoreboard():
 def drawScore():
     '''draws the score and high score in the upper left of the screen'''
     pygame.sysfont
-    text = font.render("SCORE: " + str(int(score)), False, (255, 255, 255))
+    text = font.render("SCORE: " + str(int(GlobalVariables.score)), False, (255, 255, 255))
     hitext = tinyfont.render("HI: " + str(hi), False, (200, 200, 200))
     GlobalVariables.screen.blit(text, (4, 4))
     GlobalVariables.screen.blit(hitext, (4, 40))
@@ -2010,21 +2009,21 @@ def loadScoreboard():
 
 def handleLag():
     '''handles the lag by removing non essential game assets'''
-    if (mode != 1):
+    if (GlobalVariables.mode != 1):
         return
     catchup()
 
     partsr = 0
     asterr = 0
-    for part in particles:
+    for part in GlobalVariables.particles:
         if (randChance(50)):
             part.life = 0
             partsr += 1
-    for en in enemies:
+    for en in GlobalVariables.enemies:
         if (type(en) is asteroid):
             if (en.radius <= 10):
-                if (distance(en.pos, p1.pos) > 400):
-                    enemies.remove(en)
+                if (distance(en.pos, GlobalVariables.p1.pos) > 400):
+                    GlobalVariables.enemies.remove(en)
                     asterr += 1
                     # print("cleaned up " + str(partsr) + " particles, " +str(asterr) + " asteroids")
 
@@ -2067,35 +2066,35 @@ def collidingColchecks(pos, radius):
 def handleCollisions():
     handleColLists()
     itr = 0
-    for op in colcheck0:
+    for op in GlobalVariables.colcheck0:
         typ = projectile
         if (baseIs(op, enemy)):
             typ = enemy
-        opCheckColList(op, colcheck0, itr, typ)
-        if (collision(p1, op)):
+        opCheckColList(op, GlobalVariables.colcheck0, itr, typ)
+        if (collision(GlobalVariables.p1, op)):
             if (baseIs(op, projectile)):
                 if (not op.friendly):
-                    p1.damage(1)
-                    p1.powerEvent(0, op)
-                    op.hit(p1)
+                    GlobalVariables.p1.damage(1)
+                    GlobalVariables.p1.powerEvent(0, op)
+                    op.hit(GlobalVariables.p1)
             else:
-                p1.damage(1)
-                p1.powerEvent(0, op)
-                op.hit(p1)
+                GlobalVariables.p1.damage(1)
+                GlobalVariables.p1.powerEvent(0, op)
+                op.hit(GlobalVariables.p1)
         itr += 1
     itr = 0
-    for op in colcheck1:
+    for op in GlobalVariables.colcheck1:
         typ = projectile
         if (baseIs(op, enemy)):
             typ = enemy
-        opCheckColList(op, colcheck1, itr, typ)
+        opCheckColList(op, GlobalVariables.colcheck1, itr, typ)
         itr += 1
     itr = 0
-    for op in colcheck2:
+    for op in GlobalVariables.colcheck2:
         typ = projectile
         if (baseIs(op, enemy)):
             typ = enemy
-        opCheckColList(op, colcheck2, itr, typ)
+        opCheckColList(op, GlobalVariables.colcheck2, itr, typ)
         itr += 1
     collectBodies()
 
@@ -2121,98 +2120,98 @@ def opCheckColList(op, clist, itr, optype):
 
 def collectBodies():
     itr = 0
-    while (itr < len(enemies)):
-        if (enemies[itr].dead()):
-            del enemies[itr]
+    while (itr < len(GlobalVariables.enemies)):
+        if (GlobalVariables.enemies[itr].dead()):
+            del GlobalVariables.enemies[itr]
             continue
         itr += 1
     itr = 0
-    while (itr < len(projectiles)):
-        if (projectiles[itr].dead()):
-            del projectiles[itr]
+    while (itr < len(GlobalVariables.projectiles)):
+        if (GlobalVariables.projectiles[itr].dead()):
+            del GlobalVariables.projectiles[itr]
             continue
         itr += 1
 
 
 def handleColLists():
-    global colcheck0
-    global colcheck1
-    global colcheck2
-    colcheck0 = list()
-    colcheck1 = list()
-    colcheck2 = list()
-    for en in enemies:
+    #global colcheck0
+    #global colcheck1
+    #global colcheck2
+    GlobalVariables.colcheck0 = list()
+    GlobalVariables.colcheck1 = list()
+    GlobalVariables.colcheck2 = list()
+    for en in GlobalVariables.enemies:
         sortToColList(en)
-    for proj in projectiles:
+    for proj in GlobalVariables.projectiles:
         sortToColList(proj)
 
 
 def sortToColList(obj):
-    dist = distance(obj.pos, p1.pos)
+    dist = distance(obj.pos, GlobalVariables.p1.pos)
     if (dist <= 200):
-        colcheck0.append(obj)
+        GlobalVariables.colcheck0.append(obj)
         if (dist + obj.radius > 200):
-            colcheck1.append(obj)
+            GlobalVariables.colcheck1.append(obj)
     elif (dist <= 300):
-        colcheck1.append(obj)
+        GlobalVariables.colcheck1.append(obj)
         if (dist - obj.radius <= 200):
-            colcheck0.append(obj)
+            GlobalVariables.colcheck0.append(obj)
         if (dist + obj.radius > 300):
-            colcheck2.append(obj)
+            GlobalVariables.colcheck2.append(obj)
     else:
-        colcheck2.append(obj)
+        GlobalVariables.colcheck2.append(obj)
         if (dist - obj.radius <= 300):
-            colcheck1.append(obj)
+            GlobalVariables.colcheck1.append(obj)
 
 
 def spawnStars():
     '''spawns/despawns the stars around the player'''
-    for star in stars:
-        if (distance(subtractPoints(star, p1.pos)) > 405):
-            stars.remove(star)
+    for star in GlobalVariables.stars:
+        if (distance(subtractPoints(star, GlobalVariables.p1.pos)) > 405):
+            GlobalVariables.stars.remove(star)
 
-    while (len(stars) < 200):
-        stars.append(addPoints(multPoint(xyComponent(random.random() * math.pi * 2), 400), p1.pos))
+    while (len(GlobalVariables.stars) < 200):
+        GlobalVariables.stars.append(addPoints(multPoint(xyComponent(random.random() * math.pi * 2), 400), GlobalVariables.p1.pos))
 
 
 def spawnEnemies():
     # spawns/despawns the enemies around the player
-    global enemyspawndelay
-    global cowspawndelay
+    #global enemyspawndelay
+    #global cowspawndelay
 
-    for en in enemies:
-        if (distance(subtractPoints(p1.pos, en.pos)) > 800):
-            enemies.remove(en)
+    for en in GlobalVariables.enemies:
+        if (distance(subtractPoints(GlobalVariables.p1.pos, en.pos)) > 800):
+            GlobalVariables.enemies.remove(en)
 
     # astsize = iteration / 10000
     astsize = 1
-    aliencount = (iteration - 1800) / 1800 + 1
-    bashercount = (iteration - 2000) / 2500 + 1
+    aliencount = (GlobalVariables.iteration - 1800) / 1800 + 1
+    bashercount = (GlobalVariables.iteration - 2000) / 2500 + 1
     if (aliencount < 0):
         aliencount = 0
 
-    if (enemyspawndelay <= 0):
-        enemyspawndelay = 300
+    if (GlobalVariables.enemyspawndelay <= 0):
+        GlobalVariables.enemyspawndelay = 300
         for i in range(3):
-            en = asteroid(addPoints(randCirc(500), p1.pos), randRange(randRange(randRange(120 * astsize + 10))) + 8)
+            en = asteroid(addPoints(randCirc(500), GlobalVariables.p1.pos), randRange(randRange(randRange(120 * astsize + 10))) + 8)
             en.vel = randPoint(3)
-            enemies.append(en)
+            GlobalVariables.enemies.append(en)
 
         for i in range(int(aliencount)):
-            en = alien(addPoints(randCirc(500), p1.pos))
-            enemies.append(en)
+            en = alien(addPoints(randCirc(500), GlobalVariables.p1.pos))
+            GlobalVariables.enemies.append(en)
 
         if (int(bashercount) > 0):
             for i in range(random.randrange(int(bashercount))):
-                bs = basher(addPoints(randCirc(randRange(600, 500)), p1.pos))
-                enemies.append(bs)
-    enemyspawndelay -= 1
-    if (iteration > 3500):
-        cowspawndelay -= 1
-        if (cowspawndelay <= 0):
-            cowspawndelay = 1200
-            cow = motherCow(addPoints(randCirc(500), p1.pos))
-            enemies.append(cow)
+                bs = basher(addPoints(randCirc(randRange(600, 500)), GlobalVariables.p1.pos))
+                GlobalVariables.enemies.append(bs)
+    GlobalVariables.enemyspawndelay -= 1
+    if (GlobalVariables.iteration > 3500):
+        GlobalVariables.cowspawndelay -= 1
+        if (GlobalVariables.cowspawndelay <= 0):
+            GlobalVariables.cowspawndelay = 1200
+            cow = motherCow(addPoints(randCirc(500), GlobalVariables.p1.pos))
+            GlobalVariables.enemies.append(cow)
 
 
 def compilePath(path):
@@ -2225,7 +2224,7 @@ def compilePath(path):
 def drawStars():
     '''draws the stars'''
     itr = 0
-    for star in stars:
+    for star in GlobalVariables.stars:
         pol = poly()
         pol.color = (140, 140, 140)
         pol.verts = [(0, 0)]
