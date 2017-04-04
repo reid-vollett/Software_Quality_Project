@@ -17,8 +17,8 @@ def suite():
     # Add test cases to suiteGeneral here
 
     # Add test cases to suiteClasses here
-    suiteClasses.addTest(testClass.Basher("testCase"))
-    suiteClasses.addTest(testClass.Alien("testCase"))
+    suiteClasses.addTest(testClass.BasherTest("testCase"))
+    suiteClasses.addTest(testClass.AlienTest("testCase"))
 
     # Add test cases to suiteFunctions here
 

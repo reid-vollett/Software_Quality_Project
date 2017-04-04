@@ -3,7 +3,7 @@ import sys
 import os
 import subprocess
 
-class Alien(unittest.TestCase):
+class AlienTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -14,7 +14,7 @@ class Alien(unittest.TestCase):
         """Check that widgets are created with correct default size"""
         print("test")
 
-class Asteroird(unittest.TestCase):
+class AsteroidTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -22,7 +22,7 @@ class Asteroird(unittest.TestCase):
         pass
 
 
-class Basher(unittest.TestCase):
+class BasherTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -34,7 +34,7 @@ class Basher(unittest.TestCase):
         print("test")
 
 
-class Camera(unittest.TestCase):
+class CameraTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -42,7 +42,7 @@ class Camera(unittest.TestCase):
         pass
 
 
-class Circ(unittest.TestCase):
+class CircTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -50,7 +50,7 @@ class Circ(unittest.TestCase):
         pass
 
 
-class DeflectorShield(unittest.TestCase):
+class DeflectorShieldTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -58,7 +58,7 @@ class DeflectorShield(unittest.TestCase):
         pass
 
 
-class Enemy(unittest.TestCase):
+class EnemyTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -66,7 +66,7 @@ class Enemy(unittest.TestCase):
         pass
 
 
-class EnemyBullet(unittest.TestCase):
+class EnemyBulletTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -75,7 +75,7 @@ class EnemyBullet(unittest.TestCase):
 
 
 # Should be a good place to put alot of unit tests
-class ezmath(unittest.TestCase):
+class ezmathTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -83,7 +83,7 @@ class ezmath(unittest.TestCase):
         pass
 
 
-class gameFunctions(unittest.TestCase):
+class gameFunctionsTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -91,7 +91,7 @@ class gameFunctions(unittest.TestCase):
         pass
 
 
-class GlobalVariables(unittest.TestCase):
+class GlobalVariablesTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -100,7 +100,7 @@ class GlobalVariables(unittest.TestCase):
 
 
 # cant really do anything here
-class Img(unittest.TestCase):
+class ImgTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -108,7 +108,7 @@ class Img(unittest.TestCase):
         pass
 
 
-class IonBullet(unittest.TestCase):
+class IonBulletTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -116,7 +116,7 @@ class IonBullet(unittest.TestCase):
         pass
 
 
-class IonCannon(unittest.TestCase):
+class IonCannonTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -124,7 +124,7 @@ class IonCannon(unittest.TestCase):
         pass
 
 
-class Item(unittest.TestCase):
+class ItemTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -132,7 +132,7 @@ class Item(unittest.TestCase):
         pass
 
 
-class Missile(unittest.TestCase):
+class MissileTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -140,7 +140,7 @@ class Missile(unittest.TestCase):
         pass
 
 
-class MissileLauncher(unittest.TestCase):
+class MissileLauncherTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -148,7 +148,7 @@ class MissileLauncher(unittest.TestCase):
         pass
 
 
-class MotherCow(unittest.TestCase):
+class MotherCowTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -156,7 +156,7 @@ class MotherCow(unittest.TestCase):
         pass
 
 
-class MotherCowDeath(unittest.TestCase):
+class MotherCowDeathTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -164,7 +164,7 @@ class MotherCowDeath(unittest.TestCase):
         pass
 
 
-class OverShield(unittest.TestCase):
+class OverShieldTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -172,22 +172,14 @@ class OverShield(unittest.TestCase):
         pass
 
 
-class Particle(unittest.TestCase):
+class ParticleTest(unittest.TestCase):
     def setUp(self):
         pass
 
     def tearDown(self):
         pass
 
-class Player(unittest.TestCase):
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-
-class Poly(unittest.TestCase):
+class PlayerTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -195,7 +187,7 @@ class Poly(unittest.TestCase):
         pass
 
 
-class Projectile(unittest.TestCase):
+class PolyTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -203,7 +195,7 @@ class Projectile(unittest.TestCase):
         pass
 
 
-class QuadShooter(unittest.TestCase):
+class ProjectileTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -211,7 +203,7 @@ class QuadShooter(unittest.TestCase):
         pass
 
 
-class RapidGun(unittest.TestCase):
+class QuadShooterTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -219,7 +211,7 @@ class RapidGun(unittest.TestCase):
         pass
 
 
-class Shaper(unittest.TestCase):
+class RapidGunTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -227,7 +219,7 @@ class Shaper(unittest.TestCase):
         pass
 
 
-class SpaceGame(unittest.TestCase):
+class ShaperTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -235,7 +227,7 @@ class SpaceGame(unittest.TestCase):
         pass
 
 
-class SpreadGun(unittest.TestCase):
+class SpaceGameTest(unittest.TestCase):
     def setUp(self):
         pass
 
@@ -243,7 +235,15 @@ class SpreadGun(unittest.TestCase):
         pass
 
 
-class Weapon(unittest.TestCase):
+class SpreadGunTest(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+
+class WeaponTest(unittest.TestCase):
     def setUp(self):
         pass
 
