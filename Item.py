@@ -35,18 +35,18 @@ class item:
         this.radius = 20
         this.powersprite = power
 
-    def randItem(this):
+    def randItem(this, pos):
         '''static: returns a random item'''
         rand = random.randrange(-3, 4)
         if (rand >= 0):
-            return item(this.pos, rand)
+            return item(pos, rand)
         else:
             if (rand == -1):
-                return this.overShield(this.pos)
+                return this.overShield(pos)
             if (rand == -2):
-                return this.deflectorShield(this.pos)
+                return this.deflectorShield(pos)
             if (rand == -3):
-                return this.quadShooter(this.pos)
+                return this.quadShooter(pos)
 
     def grab(this):
         '''gives the item to the specified player'''
