@@ -18,10 +18,6 @@ def suite():
     # Add test cases to suiteGeneral here
 
     # Add test cases to suiteClasses here
-    suiteClasses.addTest(testClass.SpaceGameTest("testCase"))
-    #suiteClasses.addTest(testClass.AlienTest("testCase"))
-
-    #ezmath
     suiteClasses.addTest(testClass.ezmathTest("testDistance"))
     suiteClasses.addTest(testClass.ezmathTest("testAddPoints"))
     suiteClasses.addTest(testClass.ezmathTest("testSubtractPoints"))
@@ -31,6 +27,7 @@ def suite():
     suiteClasses.addTest(testClass.ezmathTest("testNormal"))
     suiteClasses.addTest(testClass.ezmathTest("testRoundPoint"))
     suiteClasses.addTest(testClass.ezmathTest("testRandPoint"))
+
     # Add test cases to suiteFunctions here
 
     # Nest test suites here
