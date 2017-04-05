@@ -18,8 +18,8 @@ def suite():
     # Add test cases to suiteGeneral here
 
     # Add test cases to suiteClasses here
-    suiteClasses.addTest(testClass.BasherTest("testCase"))
-    suiteClasses.addTest(testClass.AlienTest("testCase"))
+    suiteClasses.addTest(testClass.SpaceGameTest("testCase"))
+    #suiteClasses.addTest(testClass.AlienTest("testCase"))
 
     #ezmath
     suiteClasses.addTest(testClass.ezmathTest("testDistance"))

@@ -1,10 +1,12 @@
+
+
 import GlobalVariables
 from Enemy import enemy
 from EnemyBullet import enemyBullet
 from Particle import particle
 from Poly import poly
 from gameFunctions import *
-
+from ezmath import *
 
 class alien(enemy):
     def __init__(this, pos):

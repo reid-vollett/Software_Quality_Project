@@ -1,4 +1,6 @@
 #enemy class
+
+
 import GlobalVariables
 from Item import item
 from ezmath import *
@@ -11,6 +13,7 @@ class enemy:
         this.projectile = importProjectile()
         this.cck = False
         this.pos = pos
+        print(pos)
         this.vel = (0, 0)
         this.health = 1
         this.radius = 10

@@ -1,3 +1,5 @@
+
+
 import GlobalVariables
 from Asteroid import asteroid
 from Player import player

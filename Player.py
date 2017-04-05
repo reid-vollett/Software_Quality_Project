@@ -1,8 +1,10 @@
+from ezmath import *
+
 import GlobalVariables
 from Particle import particle
 from Poly import poly
 from Weapon import weapon
-from ezmath import *
+
 
 
 # the player object, what the user is controlling

@@ -1,8 +1,10 @@
+from ezmath import *
+
 import GlobalVariables
 from Missile import missile
 from Poly import poly
 from Weapon import weapon
-from ezmath import *
+
 
 
 # a high-damage power weapon that locks onto nearby enemies

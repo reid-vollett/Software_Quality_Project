@@ -1,8 +1,10 @@
+from ezmath import *
+
 import GlobalVariables
 from Circ import circ
 from Particle import particle
 from Projectile import projectile
-from ezmath import*
+
 
 
 class ionBullet(projectile):
