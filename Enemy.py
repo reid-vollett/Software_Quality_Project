@@ -27,8 +27,8 @@ class enemy:
         '''has a chance to drop an item'''
         if (len(GlobalVariables.items) > 1):
             return
-        if (not randChance(90)):
-            # 5 -> 90 for testing
+        if (not randChance(5)):
+            # testing 5 -> 90
             # 95% of the time nothing is dropped
             return
         # ~1 in every 20 kills an item is dropped
