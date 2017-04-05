@@ -26,7 +26,7 @@ def suite():
     suiteClasses.addTest(testClass.ezmathTest("testDirection"))
     suiteClasses.addTest(testClass.ezmathTest("testNormal"))
     suiteClasses.addTest(testClass.ezmathTest("testRoundPoint"))
-    suiteClasses.addTest(testClass.ezmathTest("testRandPoint"))
+    #suiteClasses.addTest(testClass.ezmathTest("testRandPoint"))
 
     # Add test cases to suiteFunctions here
 
