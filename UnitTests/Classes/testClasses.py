@@ -6,15 +6,6 @@ import Alien, Asteroid, Basher, Camera, Circ, DeflectorShield, Enemy, EnemyBulle
     GlobalVariables, IonBullet, IonCannon, Item, Missile, MissileLauncher, MotherCow, MotherCowDeath, OverShield, \
     Particle, Player, Poly, Projectile, QuadShooter, RapidGun, Shape, SpreadGun, Weapon, SpaceGame
 
-class SpaceGameTest(unittest.TestCase):
-    def testCase(self):
-        SpaceGame.draw()
-
-
-
-
-
-
 class AlienTest(unittest.TestCase):
     def setUp(self):
         pass
