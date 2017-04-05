@@ -10,20 +10,26 @@ from Classes import testClasses as testClass
 # Test Suite
 def suite():
     # Add test suites
-    suiteClasses = unittest.TestSuite()
+    suitePositive = unittest.TestSuite()
+    suiteNegative = unittest.TestSuite()
 
-    suiteClasses.addTest(testClass.ezmathTest("testDistance"))
-    suiteClasses.addTest(testClass.ezmathTest("testAddPoints"))
-    suiteClasses.addTest(testClass.ezmathTest("testSubtractPoints"))
-    suiteClasses.addTest(testClass.ezmathTest("testMultPoint"))
-    suiteClasses.addTest(testClass.ezmathTest("testxyComponent"))
-    suiteClasses.addTest(testClass.ezmathTest("testDirection"))
-    suiteClasses.addTest(testClass.ezmathTest("testNormal"))
-    suiteClasses.addTest(testClass.ezmathTest("testRoundPoint"))
-    #suiteClasses.addTest(testClass.ezmathTest("testRandPoint"))
+    # Positive Tests
+    suitePositive.addTest(testClass.ezmathTest("testDistance"))
+    suitePositive.addTest(testClass.ezmathTest("testAddPoints"))
+    suitePositive.addTest(testClass.ezmathTest("testSubtractPoints"))
+    suitePositive.addTest(testClass.ezmathTest("testMultPoint"))
+    suitePositive.addTest(testClass.ezmathTest("testxyComponent"))
+    suitePositive.addTest(testClass.ezmathTest("testDirection"))
+    suitePositive.addTest(testClass.ezmathTest("testNormal"))
+    suitePositive.addTest(testClass.ezmathTest("testRoundPoint"))
+    #suitePositive.addTest(testClass.ezmathTest("testRandPoint"))
 
-    # Nest test suites here
-    suite = unittest.TestSuite((suiteClasses))
+    # Negative Tests
+    suiteNegative.addTest(testClass.ezmathTest("testDistanceNegative"))
+    suiteNegative.addTest(testClass.ezmathTest("testDirectionNegative"))
+
+    # Nest test suites
+    suite = unittest.TestSuite((suitePositive, suiteNegative))
 
     # Return test suite to runner to execution
     return suite
