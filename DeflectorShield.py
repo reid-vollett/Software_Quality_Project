@@ -1,8 +1,10 @@
+
+
 import GlobalVariables
 from Circ import circ
 from Item import item
 from Poly import poly
-from ezmath import  *
+from ezmath import *
 
 
 # deflector shield creates a matrix of projectile resistant forcefields around the player

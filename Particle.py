@@ -1,6 +1,8 @@
 #Particle Class
-import GlobalVariables
 from ezmath import *
+
+import GlobalVariables
+
 
 
 class particle:

@@ -10,8 +10,8 @@
 import os
 import sys
 import time
-
 import pygame
+
 
 from Alien import alien
 from Asteroid import asteroid
@@ -25,6 +25,7 @@ from Player import player
 from Poly import poly
 from Projectile import projectile
 from gameFunctions import *
+import GlobalVariables
 
 # used for compiling with pyinstaller
 fpath = '.'
