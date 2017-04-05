@@ -22,7 +22,7 @@ Source Code Cloned: March 29th, 2017
 3. \> python spacegame.py
 ### Unit Test Suite Execution
 1. Install latest version of Anaconda (https://www.continuum.io/downloads)
-2. \> python TestMain.py --unittest
+2. \> python TestMain.py
 
 ## Instructions
 ### Enemies
