@@ -3,21 +3,15 @@ import sys
 import os
 import subprocess
 
-
 sys.path.append(os.path.abspath('..'))
 
 from Classes import testClasses as testClass
 
 # Test Suite
 def suite():
-    # Add test suites here
-    suiteGeneral = unittest.TestSuite()
+    # Add test suites
     suiteClasses = unittest.TestSuite()
-    suiteFunctions = unittest.TestSuite()
 
-    # Add test cases to suiteGeneral here
-
-    # Add test cases to suiteClasses here
     suiteClasses.addTest(testClass.ezmathTest("testDistance"))
     suiteClasses.addTest(testClass.ezmathTest("testAddPoints"))
     suiteClasses.addTest(testClass.ezmathTest("testSubtractPoints"))
@@ -28,10 +22,8 @@ def suite():
     suiteClasses.addTest(testClass.ezmathTest("testRoundPoint"))
     #suiteClasses.addTest(testClass.ezmathTest("testRandPoint"))
 
-    # Add test cases to suiteFunctions here
-
     # Nest test suites here
-    suite = unittest.TestSuite((suiteGeneral, suiteClasses))
+    suite = unittest.TestSuite((suiteClasses))
 
     # Return test suite to runner to execution
     return suite
