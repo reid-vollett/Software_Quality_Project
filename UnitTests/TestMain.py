@@ -14,19 +14,31 @@ def suite():
     suiteNegative = unittest.TestSuite()
 
     # Positive Tests
-    suitePositive.addTest(testClass.ezmathTest("testDistance"))
-    suitePositive.addTest(testClass.ezmathTest("testAddPoints"))
-    suitePositive.addTest(testClass.ezmathTest("testSubtractPoints"))
-    suitePositive.addTest(testClass.ezmathTest("testMultPoint"))
-    suitePositive.addTest(testClass.ezmathTest("testxyComponent"))
-    suitePositive.addTest(testClass.ezmathTest("testDirection"))
-    suitePositive.addTest(testClass.ezmathTest("testNormal"))
-    suitePositive.addTest(testClass.ezmathTest("testRoundPoint"))
+    suitePositive.addTest(testClass.ezmathTest("testDistance1"))
+    suitePositive.addTest(testClass.ezmathTest("testDistanceZero"))
+    suitePositive.addTest(testClass.ezmathTest("testAddPoints1"))
+    suitePositive.addTest(testClass.ezmathTest("testAddPointsZero"))
+    suitePositive.addTest(testClass.ezmathTest("testSubtractPoints1"))
+    suitePositive.addTest(testClass.ezmathTest("testSubtractPointsZero"))
+    suitePositive.addTest(testClass.ezmathTest("testMultPoint1"))
+    suitePositive.addTest(testClass.ezmathTest("testMultPointZero"))
+    suitePositive.addTest(testClass.ezmathTest("testxyComponent1"))
+    suitePositive.addTest(testClass.ezmathTest("testxyComponentZero"))
+    suitePositive.addTest(testClass.ezmathTest("testDirection1"))
+    suitePositive.addTest(testClass.ezmathTest("testDirectionZero"))
+    suitePositive.addTest(testClass.ezmathTest("testNormal1"))
+    suitePositive.addTest(testClass.ezmathTest("testNormalZero"))
+    suitePositive.addTest(testClass.ezmathTest("testRoundPointUp"))
+    suitePositive.addTest(testClass.ezmathTest("testRoundPointDown"))
+    suitePositive.addTest(testClass.ezmathTest("testRoundPointUpZero"))
+    suitePositive.addTest(testClass.ezmathTest("testRoundPointDownZero"))
     #suitePositive.addTest(testClass.ezmathTest("testRandPoint"))
 
     # Negative Tests
-    suiteNegative.addTest(testClass.ezmathTest("testDistanceNegative"))
-    suiteNegative.addTest(testClass.ezmathTest("testDirectionNegative"))
+    suiteNegative.addTest(testClass.ezmathTest("testDistanceNegative1"))
+    suiteNegative.addTest(testClass.ezmathTest("testDistanceNegativeZero"))
+    suiteNegative.addTest(testClass.ezmathTest("testDirectionNegative1"))
+    suiteNegative.addTest(testClass.ezmathTest("testDirectionNegativeZero"))
 
     # Nest test suites
     suite = unittest.TestSuite((suitePositive, suiteNegative))
@@ -36,7 +48,6 @@ def suite():
 
 # Test Case Main
 if __name__ == '__main__':
-    # Usage in PyCharm is normal, to run from command line add --unittest at end
     if '--unittest' in sys.argv:
         subprocess.call([sys.executable, '-m', 'unittest', 'discover'])
 
